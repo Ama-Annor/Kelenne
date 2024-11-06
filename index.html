@@ -1,71 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kelenne Carwash</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelenne Carwash</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <div class="logo">Kelenne Carwash</div>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-  </header>  
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="your-logo.png" alt="Kelenne Logo">
+                <span>Kelenne Carwash</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <button class="book-btn">Book Appointment</button>
+            </ul>
+        </nav>
+    </header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <h1>It's time to Come Clean your Car</h1>
-        <p>Professional Car Wash Center to help you to get clean vehicle!</p>
-        <button class="btn">Book Appointment</button>
-      </div>
-      <div class="hero-image">
-        <img src="car.jpg" alt="Car in the sunshine">
-      </div>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Make Your Car Shine Like New</h1>
+            <p>Convenient and professional car wash services at your fingertips.</p>
+            <button class="book-btn">Discover More</button>
+        </div>
     </section>
 
-    <section class="features">
-      <div class="feature">
-        <img src="icon1.svg" alt="Car wash icon">
-        <h3>Car wash 100% without detergents</h3>
-      </div>
-      <div class="feature">
-        <img src="icon2.svg" alt="Rain/Snow protection icon">
-        <h3>Rain/Snow protection programs</h3>
-      </div>
-      <div class="feature">
-        <img src="icon3.svg" alt="Efficient modern wash icon">
-        <h3>Efficient modern wash machines</h3>
-      </div>
-      <div class="feature">
-        <img src="icon4.svg" alt="Online Appointment icon">
-        <h3>Online Appointment Booking system</h3>
-      </div>
+    <section class="features" id="services">
+        <div class="features-container">
+            <div class="feature-card">
+                <i class="fas fa-calendar-check feature-icon"></i>
+                <h3>Online Booking & Payments</h3>
+                <p>Easily schedule car wash appointments and pay online for a hassle-free experience.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-cog feature-icon"></i>
+                <h3>Appointment Management</h3>
+                <p>Efficient management of appointments and customer details through our platform.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-user-clock feature-icon"></i>
+                <h3>Employee Schedule Tracking</h3>
+                <p>Track employee schedules to ensure smooth daily operations and punctual service.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-comments feature-icon"></i>
+                <h3>Customer Feedback</h3>
+                <p>Collect feedback and send special offers to loyal customers.</p>
+            </div>
+        </div>
     </section>
 
-    <section class="about">
-      <div class="about-content">
-        <h2>Professional Auto washing and detailing services</h2>
-        <p>Over the past 6 years we cleaned over 34,000 cars, saved over 8.9 million liters of water from being used in car washing and employed 50 youth. Our legacy is in the youth that gained work and life skills, grew their confidence and have moved on to bigger.</p>
-        <a href="#" class="btn">Download Carwash_Pricing_List</a>
-      </div>
-      <div class="about-image">
-        <img src="car-in-nature.jpg" alt="Car in nature">
-      </div>
+    <section class="about" id="about">
+        <div class="about-content">
+            <h2>Connecting Car Wash Businesses with Local Customers</h2>
+            <p>Our platform provides a seamless digital experience for customers to book and pay for car wash services online. Car wash businesses can efficiently manage appointments, track employee schedules, and streamline daily operations through an intuitive dashboard.</p>
+            <button class="download-btn">Download Price List</button>
+        </div>
+        <div class="about-image">
+            <img src="about-image.jpg" alt="Car washing">
+        </div>
     </section>
-  </main>
 
-  <footer>
-    <p>&copy; 2023 Kelenne Carwash. All rights reserved.</p>
-  </footer>
+    <section class="statistics">
+        <div class="stat-container">
+            <div class="stat-item">
+                <span class="counter" data-target="34000">0</span>
+                <p>Appointments Booked</p>
+            </div>
+            <div class="stat-item">
+                <span class="counter" data-target="5000">0</span>
+                <p>Feedback Reviews</p>
+            </div>
+            <div class="stat-item">
+                <span class="counter" data-target="120">0</span>
+                <p>Active Car Washes</p>
+            </div>
+            <div class="stat-item">
+                <span class="counter" data-target="250">0</span>
+                <p>Happy Customers</p>
+            </div>
+        </div>
+    </section>
 
-  <script src="script.js"></script>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone"></i> 650-732-9369</p>
+                <p><i class="fas fa-envelope"></i> info@kelenne.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Kelenne Carwash. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
