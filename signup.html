@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelenne Car Wash - Sign Up</title>
+    <link rel="stylesheet" href="signup.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo">
+            <i class='bx bxs-car-wash'></i>
+            Kelenne Car Wash
+        </a>
+        <nav class="navbar">
+            <a href="#">Home</a>
+            <a href="#">Services</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="signup-container">
+            <div class="signup-image">
+                <div class="image-overlay">
+                    <h2>Join Our Premium Service</h2>
+                    <ul>
+                        <li><i class='bx bx-check-circle'></i> Express & Premium Wash Services</li>
+                        <li><i class='bx bx-check-circle'></i> Monthly Membership Benefits</li>
+                        <li><i class='bx bx-check-circle'></i> Mobile App Integration</li>
+                        <li><i class='bx bx-check-circle'></i> Priority Scheduling</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="signup-form">
+                <h2>Create Account</h2>
+                <form id="signupForm" onsubmit="return validateForm(event)">
+                    <div class="input-group">
+                        <input type="text" id="fname" required>
+                        <label>First Name</label>
+                        <span class="error-message" id="fnameError"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="lname" required>
+                        <label>Last Name</label>
+                        <span class="error-message" id="lnameError"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="email" required>
+                        <label>Email Address</label>
+                        <span class="error-message" id="emailError"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="tel" id="phone" required>
+                        <label>Phone Number</label>
+                        <span class="error-message" id="phoneError"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" required>
+                        <label>Password</label>
+                        <span class="error-message" id="passwordError"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="confirmPassword" required>
+                        <label>Confirm Password</label>
+                        <span class="error-message" id="confirmPasswordError"></span>
+                    </div>
+                    <button type="submit" class="signup-button">Create Account</button>
+                    <div class="login-link">
+                        <p>Already have an account? <a href="#">Sign In</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            
+            // Reset all error messages
+            document.querySelectorAll('.error-message').forEach(error => {
+                error.style.display = 'none';
+            });
+            
+            let isValid = true;
+            
+            // First Name validation
+            const fname = document.getElementById('fname');
+            if (!/^[a-zA-Z-' ]{2,30}$/.test(fname.value.trim())) {
+                document.getElementById('fnameError').textContent = 'Please enter a valid first name';
+                document.getElementById('fnameError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Last Name validation
+            const lname = document.getElementById('lname');
+            if (!/^[a-zA-Z-' ]{2,30}$/.test(lname.value.trim())) {
+                document.getElementById('lnameError').textContent = 'Please enter a valid last name';
+                document.getElementById('lnameError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Email validation
+            const email = document.getElementById('email');
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address';
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Phone validation
+            const phone = document.getElementById('phone');
+            if (!/^\d{10}$/.test(phone.value.replace(/\D/g, ''))) {
+                document.getElementById('phoneError').textContent = 'Please enter a valid 10-digit phone number';
+                document.getElementById('phoneError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Password validation
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+            
+            if (password.value.length < 8) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 8 characters long';
+                document.getElementById('passwordError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (password.value !== confirmPassword.value) {
+                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+                document.getElementById('confirmPasswordError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Form would be submitted here
+                console.log('Form is valid, ready to submit');
+            }
+            
+            return false;
+        }
+    </script>
+</body>
+</html>
