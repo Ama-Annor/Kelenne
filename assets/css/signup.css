@@ -1,0 +1,228 @@
+:root {
+    --primary-blue: #1e40af;
+    --secondary-blue: #3b82f6;
+    --accent-silver: #e5e7eb;
+    --text-dark: #1f2937;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(90deg, var(--secondary-blue), rgb(30, 30, 110) );
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 5%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.logo i {
+    margin-right: 10px;
+    font-size: 2rem;
+}
+
+.navbar a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 30px;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: var(--accent-silver);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 80px 20px 20px;
+}
+
+.signup-container {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+}
+
+.signup-image {
+    flex: 1;
+    background: url('../images/carwash3.jpg') center/cover;
+    position: relative;
+    min-height: 600px;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 64, 175, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+    color: var(--white);
+}
+
+.image-overlay h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.image-overlay ul {
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.image-overlay ul li {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.image-overlay ul li i {
+    margin-right: 10px;
+}
+
+.signup-form {
+    flex: 1;
+    padding: 40px;
+    background: var(--white);
+}
+
+.signup-form h2 {
+    color: var(--text-dark);
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.input-group input:focus {
+    border-color: var(--secondary-blue);
+    outline: none;
+}
+
+.input-group label {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--white);
+    padding: 0 5px;
+    color: #64748b;
+    transition: all 0.3s;
+    pointer-events: none;
+}
+
+.input-group input:focus ~ label,
+.input-group input:valid ~ label {
+    top: 0;
+    font-size: 0.9rem;
+    color: var(--secondary-blue);
+}
+
+.error-message {
+    color: #dc2626;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: none;
+}
+
+.signup-button {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-blue);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 20px;
+}
+
+.signup-button:hover {
+    background: var(--secondary-blue);
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--text-dark);
+}
+
+.login-link a {
+    color: var(--secondary-blue);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .signup-container {
+        flex-direction: column;
+    }
+
+    .signup-image {
+        min-height: 300px;
+    }
+
+    .image-overlay h2 {
+        font-size: 2rem;
+    }
+
+    .header {
+        padding: 15px 5%;
+    }
+
+    .navbar a {
+        margin-left: 15px;
+        font-size: 0.9rem;
+    }
+}
