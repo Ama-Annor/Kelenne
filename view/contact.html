@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Kelenne Car Wash</title>
+    <link rel="stylesheet" href="./assets/css/contact.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Add AOS library for scroll animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="contact">
+                <span>📞 Call Us: +233 46493 8388</span>
+            </div>
+            <div class="social-icons">
+                <a href="#" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+                <a href="#" aria-label="Twitter"><i class='bx bxl-twitter'></i></a>
+                <a href="#" aria-label="Facebook"><i class='bx bxl-facebook'></i></a>
+                <a href="#" aria-label="YouTube"><i class='bx bxl-youtube'></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">KELENNE<span> CAR WASH</span></div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="#">Services</a>
+                <a href="view/about.html">About</a>
+                <a href="#" class="active">Contact</a>
+                <a href="view/login.html">Login</a>
+                <a href="view/signup.html">Register</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contact Hero Section -->
+    <section class="contact-hero">
+        <div class="contact-hero-content" data-aos="fade-up">
+            <h1>Get In Touch</h1>
+            <p>We're here to help and answer any questions you might have</p>
+        </div>
+    </section>
+
+    <!-- Main Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <!-- Contact Information Cards -->
+            <div class="contact-info">
+                <div class="info-card" data-aos="fade-right">
+                    <i class='bx bx-map'></i>
+                    <h3>Visit Us</h3>
+                    <p>26 Nkorman ansah estate,<br>GRA Abia state</p>
+                </div>
+                <div class="info-card" data-aos="fade-up">
+                    <i class='bx bx-phone'></i>
+                    <h3>Call Us</h3>
+                    <p>+234 890 3900 342<br>+233 46493 8388</p>
+                </div>
+                <div class="info-card" data-aos="fade-left">
+                    <i class='bx bx-envelope'></i>
+                    <h3>Email Us</h3>
+                    <p>info@kelennecarwash.com<br>support@kelennecarwash.com</p>
+                </div>
+            </div>
+
+            <!-- Contact Form and Map -->
+            <div class="contact-content">
+                <div class="form-container" data-aos="fade-right">
+                    <h2>Send Us a Message</h2>
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                            <div class="input-focus-effect"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                            <div class="input-focus-effect"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                            <div class="input-focus-effect"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                            <div class="input-focus-effect"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <div class="input-focus-effect"></div>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <span>Send Message</span>
+                            <i class='bx bx-send'></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="map-container" data-aos="fade-left">
+                    <div class="map-placeholder">
+                        <!-- Replace with actual map -->
+                        <img src="/api/placeholder/600/400" alt="Location map">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Hours Section -->
+    <section class="business-hours">
+        <div class="container">
+            <h2 data-aos="fade-up">Business Hours</h2>
+            <div class="hours-grid">
+                <div class="hours-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3>Weekdays</h3>
+                    <p>Monday - Friday</p>
+                    <span>8:00 AM - 6:00 PM</span>
+                </div>
+                <div class="hours-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Weekends</h3>
+                    <p>Saturday - Sunday</p>
+                    <span>9:00 AM - 5:00 PM</span>
+                </div>
+                <div class="hours-card" data-aos="fade-up" data-aos-delay="300">
+                    <h3>Holidays</h3>
+                    <p>Public Holidays</p>
+                    <span>10:00 AM - 4:00 PM</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Same as main page) -->
+    <footer class="footer">
+        <!-- Footer content remains the same -->
+    </footer>
+
+    <script src="assets/js/contact.js"></script>
+</body>
+</html>
