@@ -55,6 +55,7 @@
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
+
 .nav-container {
     display: flex;
     justify-content: space-between;
@@ -430,6 +431,7 @@ nav a:hover::after {
     margin-top: 40px;
     border-top: 1px solid rgba(255,255,255,0.1);
 }
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
