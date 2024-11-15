@@ -7,13 +7,44 @@
     --transition: all 0.3s ease;
 }
 
+.top-bar {
+    background-color: #1e3a8a;
+    color: white;
+    padding: 0.5rem 0;
+}
+
+.top-bar-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.social-icons a {
+    color: white;
+    margin-left: 1rem;
+    text-decoration: none;
+}
+
+.social-icons a:hover {
+    color: #60a5fa;
+}
+
 /* Header */
-.header {
-    background: var(--white);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+header {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
-    z-index: 100;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.services {
+    padding-top: 0; 
 }
 
 .nav-container {
