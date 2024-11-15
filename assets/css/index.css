@@ -319,6 +319,9 @@ nav a:hover::after {
     display: inline-block;
     margin-top: 10px;
 }
+.secondary-button {
+    font-size: 20px;
+}
 
 .read-more:hover {
     color: #4dc4b0;
