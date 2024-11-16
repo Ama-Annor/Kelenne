@@ -1,4 +1,4 @@
-// Smooth Scroll for Navigation Links
+//Smooth Scroll for Navigation Links
 document.querySelectorAll('nav a').forEach(link => {
     link.addEventListener('click', function(e) {
         e.preventDefault();
@@ -8,7 +8,7 @@ document.querySelectorAll('nav a').forEach(link => {
     });
 });
 
-// Button Hover Effects
+//Button Hover Effects
 document.querySelectorAll('.btn').forEach(button => {
     button.addEventListener('mouseenter', () => {
         button.style.transform = 'scale(1.1)';
@@ -20,7 +20,7 @@ document.querySelectorAll('.btn').forEach(button => {
     });
 });
 
-// Reveal Sections on Scroll
+//Reveal Sections on Scroll
 const revealSections = document.querySelectorAll('.reveal');
 const revealOnScroll = () => {
     const triggerBottom = window.innerHeight / 1.2;
@@ -34,12 +34,12 @@ const revealOnScroll = () => {
     });
 };
 window.addEventListener('scroll', revealOnScroll);
-revealOnScroll();  // Run on page load to check initial visibility
+revealOnScroll();  //Run on page load to check initial visibility
 
-// Car Wash Service Animation
+//Car Wash Service Animation
 const services = document.querySelectorAll('.service-card');
 services.forEach((service, index) => {
-    service.style.transitionDelay = `${index * 0.1}s`;  // Stagger animation
+    service.style.transitionDelay = `${index * 0.1}s`;  //Stagger animation
     service.addEventListener('mouseenter', () => {
         service.style.transform = 'scale(1.05)';
     });
@@ -48,7 +48,7 @@ services.forEach((service, index) => {
     });
 });
 
-// FAQ Section Toggle with Animation
+//FAQ Section Toggle with Animation
 document.querySelectorAll('.faq-item').forEach(item => {
     item.querySelector('.faq-question').addEventListener('click', () => {
         const answer = item.querySelector('.faq-answer');
