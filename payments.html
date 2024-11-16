@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelenne Car Wash - Payments & Invoices</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../assets/css/index.css">
+    <link rel="stylesheet" href="../assets/css/inventory.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* Reusing your existing CSS variables */
+        :root {
+            --primary-blue: #1e40af;
+            --secondary-blue: #3b82f6;
+            --accent-silver: #e5e7eb;
+            --text-dark: #1f2937;
+            --white: #ffffff;
+        }
+
+        /* Payment-specific styles */
+        .payment-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+
+        .payment-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .badge-paid {
+            background: #DEF7EC;
+            color: #03543F;
+        }
+
+        .badge-pending {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .badge-overdue {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .date-range-picker {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .date-input {
+            padding: 8px;
+            border: 1px solid var(--accent-silver);
+            border-radius: 5px;
+            width: 130px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="logo">
+                <i class='bx bxs-car-wash'></i>
+                <span>KELENNE</span>
+            </div>
+            <nav>
+                <a href="#" class="menu-item">
+                    <i class='bx bx-calendar-plus'></i>
+                    <span>Book a Service</span>
+                </a>
+                <a href="appointments.html" class="menu-item">
+                    <i class='bx bx-calendar'></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="employee.html" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Employees</span>
+                </a>
+                <a href="payments.html" class="menu-item">
+                    <i class='bx bx-dollar'></i>
+                    <span>Payments</span>
+                </a>
+                <a href="revenue-analytics.html" class="menu-item">
+                    <i class='bx bx-line-chart'></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="inventory.html" class="menu-item">
+                    <i class='bx bx-box'></i>
+                    <span>Inventory</span>
+                </a>
+                <a href="customers.html" class="menu-item">
+                    <i class='bx bx-group'></i>
+                    <span>Customers</span>
+                </a>
+                <a href="services.html" class="menu-item">
+                    <i class='bx bx-list-ul'></i>
+                    <span>Services</span>
+                </a>
+                <a href="equipments.html" class="menu-item">
+                    <i class='bx bx-wrench'></i>
+                    <span>Equipment</span>
+                </a>
+                <a href="promotions.html" class="menu-item">
+                    <i class='bx bx-gift'></i>
+                    <span>Promotions & Rewards</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Profile Settings</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="main-content">
+            <!-- Payment Statistics -->
+            <div class="payment-stats">
+                <div class="stat-card">
+                    <h3>Total Revenue</h3>
+                    <div class="stat-value">₦125,450</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Pending Payments</h3>
+                    <div class="stat-value">₦12,800</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Overdue Payments</h3>
+                    <div class="stat-value">₦5,200</div>
+                </div>
+            </div>
+
+            <div class="actions-bar">
+                <div class="search-bar">
+                    <div class="date-range-picker">
+                        <input type="text" id="startDate" class="date-input" placeholder="Start Date">
+                        <span>to</span>
+                        <input type="text" id="endDate" class="date-input" placeholder="End Date">
+                    </div>
+                    <input type="text" placeholder="Search by customer or invoice..." id="searchInput">
+                    <button class="btn btn-secondary" onclick="searchPayments()">
+                        <i class='bx bx-search'></i> Search
+                    </button>
+                </div>
+                <button class="btn btn-primary" onclick="openAddModal()">
+                    <i class='bx bx-plus'></i> New Payment
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Invoice #</th>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentTableBody">
+                        <tr>
+                            <td>INV-2024-001</td>
+                            <td>John Doe</td>
+                            <td>Premium Wash</td>
+                            <td>₦5,000</td>
+                            <td>2024-03-15</td>
+                            <td><span class="payment-badge badge-paid">Paid</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon btn-view" onclick="viewPayment(1)">
+                                        <i class='bx bx-show'></i>
+                                    </button>
+                                    <button class="btn-icon btn-edit" onclick="editPayment(1)">
+                                        <i class='bx bx-edit'></i>
+                                    </button>
+                                    <button class="btn-icon btn-delete" onclick="deletePayment(1)">
+                                        <i class='bx bx-trash'></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Add more sample rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">New Payment</h2>
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label for="customer">Customer</label>
+                    <select id="customer" required>
+                        <option value="">Select Customer</option>
+                        <option value="1">John Doe</option>
+                        <option value="2">Jane Smith</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="service">Service</label>
+                    <select id="service" required>
+                        <option value="">Select Service</option>
+                        <option value="premium">Premium Wash</option>
+                        <option value="basic">Basic Wash</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount (₦)</label>
+                    <input type="number" id="amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="paymentDate">Payment Date</label>
+                    <input type="date" id="paymentDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="status">Payment Status</label>
+                    <select id="status" required>
+                        <option value="paid">Paid</option>
+                        <option value="pending">Pending</option>
+                        <option value="overdue">Overdue</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea id="notes" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Payment</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Payment Details Modal -->
+    <div id="viewPaymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeViewModal()">&times;</span>
+            <h2>Payment Details</h2>
+            <div id="paymentDetails">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // Initialize date pickers
+        flatpickr("#startDate", {
+            dateFormat: "Y-m-d"
+        });
+        flatpickr("#endDate", {
+            dateFormat: "Y-m-d"
+        });
+
+        // Modal functions
+        function openAddModal() {
+            document.getElementById('paymentModal').style.display = 'block';
+            document.getElementById('modalTitle').textContent = 'New Payment';
+            document.getElementById('paymentForm').reset();
+        }
+
+        function closeModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+
+        function closeViewModal() {
+            document.getElementById('viewPaymentModal').style.display = 'none';
+        }
+
+        // CRUD Operations
+        function viewPayment(id) {
+            const viewModal = document.getElementById('viewPaymentModal');
+            const detailsContainer = document.getElementById('paymentDetails');
+            
+            // Mock payment details
+            const mockPaymentDetails = `
+                <div class="payment-details">
+                    <p><strong>Invoice #:</strong> INV-2024-001</p>
+                    <p><strong>Customer:</strong> John Doe</p>
+                    <p><strong>Service:</strong> Premium Wash</p>
+                    <p><strong>Amount:</strong> ₦5,000</p>
+                    <p><strong>Date:</strong> 2024-03-15</p>
+                    <p><strong>Status:</strong> Paid</p>
+                    <p><strong>Notes:</strong> Payment received in full</p>
+                </div>
+            `;
+            
+            detailsContainer.innerHTML = mockPaymentDetails;
+            viewModal.style.display = 'block';
+        }
+
+        function editPayment(id) {
+            document.getElementById('paymentModal').style.display = 'block';
+            document.getElementById('modalTitle').textContent = 'Edit Payment';
+            // Populate form with payment data (mock)
+        }
+
+        function deletePayment(id) {
+            if (confirm('Are you sure you want to delete this payment record?')) {
+                // Implement delete functionality
+                alert('Payment record ' + id + ' deleted');
+            }
+        }
+
+        function searchPayments() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            
+            const rows = document.getElementById('paymentTableBody').getElementsByTagName('tr');
+            
+            for (let row of rows) {
+                const text = row.textContent.toLowerCase();
+                const date = row.getElementsByTagName('td')[4].textContent; // Date column
+                
+                let showRow = text.includes(searchTerm);
+                
+                if (startDate && endDate) {
+                    showRow = showRow && (date >= startDate && date <= endDate);
+                }
+                
+                row.style.display = showRow ? '' : 'none';
+            }
+        }
+
+        // Form submission
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Implement save functionality
+            alert('Payment record saved successfully!');
+            closeModal();
+        });
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('paymentModal')) {
+                closeModal();
+            }
+            if (event.target == document.getElementById('viewPaymentModal')) {
+                closeViewModal();
+            }
+        }
+    </script>
+</body>
+</html>

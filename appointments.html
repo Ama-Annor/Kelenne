@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelenne Car Wash - Appointments</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../assets/css/index.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* Include your existing CSS variables and base styles */
+        :root {
+            --primary-blue: #1e40af;
+            --secondary-blue: #3b82f6;
+            --accent-silver: #e5e7eb;
+            --text-dark: #1f2937;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Reuse your existing dashboard layout styles */
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .main-content {
+            flex: 1;
+            background: #f0f2f5;
+            padding: 20px;
+        }
+
+        /* Appointments specific styles */
+        .appointments-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input,
+        .search-bar select {
+            padding: 8px;
+            border: 1px solid var(--accent-silver);
+            border-radius: 5px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-blue);
+        }
+
+        .calendar-view {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .appointments-list {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .appointments-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .appointments-table th,
+        .appointments-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--accent-silver);
+        }
+
+        .appointments-table th {
+            background: #f8fafc;
+            color: var(--text-dark);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-buttons button {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .view-btn {
+            background: var(--secondary-blue);
+            color: white;
+        }
+
+        .edit-btn {
+            background: #10b981;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--accent-silver);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="logo">
+                <i class='bx bxs-car-wash'></i>
+                <span>KELENNE</span>
+            </div>
+            <nav>
+                <a href="#" class="menu-item">
+                    <i class='bx bx-calendar-plus'></i>
+                    <span>Book a Service</span>
+                </a>
+                <a href="appointments.html" class="menu-item">
+                    <i class='bx bx-calendar'></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="employee.html" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Employees</span>
+                </a>
+                <a href="payments.html" class="menu-item">
+                    <i class='bx bx-dollar'></i>
+                    <span>Payments</span>
+                </a>
+                <a href="revenue-analytics.html" class="menu-item">
+                    <i class='bx bx-line-chart'></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="inventory.html" class="menu-item">
+                    <i class='bx bx-box'></i>
+                    <span>Inventory</span>
+                </a>
+                <a href="customers.html" class="menu-item">
+                    <i class='bx bx-group'></i>
+                    <span>Customers</span>
+                </a>
+                <a href="services.html" class="menu-item">
+                    <i class='bx bx-list-ul'></i>
+                    <span>Services</span>
+                </a>
+                <a href="equipments.html" class="menu-item">
+                    <i class='bx bx-wrench'></i>
+                    <span>Equipment</span>
+                </a>
+                <a href="promotions.html" class="menu-item">
+                    <i class='bx bx-gift'></i>
+                    <span>Promotions & Rewards</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Profile Settings</span>
+                </a>
+            </nav>
+        </div>
+        <div class="main-content">
+            <div class="appointments-header">
+                <h2>Appointments Management</h2>
+                <button class="btn btn-primary" onclick="openModal('add')">
+                    <i class='bx bx-plus'></i> New Appointment
+                </button>
+            </div>
+
+            <div class="search-bar">
+                <input type="date" id="dateFilter" placeholder="Filter by date">
+                <input type="text" placeholder="Search customer">
+                <select id="serviceFilter">
+                    <option value="">All Services</option>
+                    <option value="basic">Basic Wash</option>
+                    <option value="premium">Premium Wash</option>
+                    <option value="detailing">Detailing</option>
+                </select>
+                <button class="btn btn-primary">Search</button>
+            </div>
+
+            <div class="calendar-view">
+                <!-- Calendar will be injected here by JavaScript -->
+                <div id="calendar"></div>
+            </div>
+
+            <div class="appointments-list">
+                <h3>Upcoming Appointments</h3>
+                <table class="appointments-table">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024-11-16 10:00 AM</td>
+                            <td>John Doe</td>
+                            <td>Premium Wash</td>
+                            <td>Confirmed</td>
+                            <td class="action-buttons">
+                                <button class="view-btn"><i class='bx bx-show'></i></button>
+                                <button class="edit-btn"><i class='bx bx-edit'></i></button>
+                                <button class="delete-btn"><i class='bx bx-trash'></i></button>
+                            </td>
+                        </tr>
+                        <!-- More appointment rows -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Appointment Modal -->
+    <div id="appointmentModal" class="modal">
+        <div class="modal-content">
+            <h3>Add New Appointment</h3>
+            <form id="appointmentForm">
+                <div class="form-group">
+                    <label>Customer Name</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Service Type</label>
+                    <select required>
+                        <option value="basic">Basic Wash</option>
+                        <option value="premium">Premium Wash</option>
+                        <option value="detailing">Detailing</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Date & Time</label>
+                    <input type="datetime-local" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save Appointment</button>
+                    <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // Initialize date picker
+        flatpickr("#dateFilter", {
+            dateFormat: "Y-m-d",
+        });
+
+        // Modal functions
+        function openModal(type) {
+            document.getElementById('appointmentModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('appointmentModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
