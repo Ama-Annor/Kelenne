@@ -1,0 +1,69 @@
+ /* Reusing your existing CSS variables */
+ :root {
+    --primary-blue: #1e40af;
+    --secondary-blue: #3b82f6;
+    --accent-silver: #e5e7eb;
+    --text-dark: #1f2937;
+    --white: #ffffff;
+}
+
+/* Payment-specific styles */
+.payment-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stat-card h3 {
+    color: var(--text-dark);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-blue);
+}
+
+.payment-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+.badge-paid {
+    background: #DEF7EC;
+    color: #03543F;
+}
+
+.badge-pending {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.badge-overdue {
+    background: #FEE2E2;
+    color: #991B1B;
+}
+
+.date-range-picker {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.date-input {
+    padding: 8px;
+    border: 1px solid var(--accent-silver);
+    border-radius: 5px;
+    width: 130px;
+}
