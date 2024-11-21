@@ -283,6 +283,25 @@ nav a:hover::after {
     flex-direction: column;
 }
 
+.testimonial-button {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.read-more-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--primary-blue);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.read-more-btn:hover {
+    background: var(--secondary-blue);
+}
+
 /* Blog Section */
 .blog-section {
     padding: 80px 0;
