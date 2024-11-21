@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelenne Car Wash - Book a Service</title>
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/inventory.css">
+    <link rel="stylesheet" href="../assets/css/index.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <style>
+        .form-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--accent-silver);
+            border-radius: 5px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .submit-btn:hover {
+            background: var(--secondary-blue);
+        }
+        .error {
+            color: red;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="logo">
+                <i class='bx bxs-car-wash'></i>
+                <span>KELENNE</span>
+            </div>
+            <nav>
+                <a href="bookNow.html" class="menu-item">
+                    <i class='bx bx-calendar-plus'></i>
+                    <span>Book a Service</span>
+                </a>
+                <a href="admin/dashboard.html" class="menu-item">
+                    <i class='bx bx-home'></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="appointments.html" class="menu-item">
+                    <i class='bx bx-calendar'></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="employee.html" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Employees</span>
+                </a>
+                <a href="payments.html" class="menu-item">
+                    <i class='bx bx-dollar'></i>
+                    <span>Payments</span>
+                </a>
+                <a href="revenue-analytics.html" class="menu-item">
+                    <i class='bx bx-line-chart'></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="inventory.html" class="menu-item">
+                    <i class='bx bx-box'></i>
+                    <span>Inventory</span>
+                </a>
+                <a href="customers.html" class="menu-item">
+                    <i class='bx bx-group'></i>
+                    <span>Customers</span>
+                </a>
+                <a href="dashboardservices.html" class="menu-item">
+                    <i class='bx bx-list-ul'></i>
+                    <span>Services</span>
+                </a>
+                <a href="equipments.html" class="menu-item">
+                    <i class='bx bx-wrench'></i>
+                    <span>Equipment</span>
+                </a>
+                <a href="promotions.html" class="menu-item">
+                    <i class='bx bx-gift'></i>
+                    <span>Promotions & Rewards</span>
+                </a>
+                <a href="profile.html" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Profile Settings</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="form-section">
+                <h2 style="text-align: center; margin-bottom: 20px; color: var(--primary-blue);">Book a Car Wash Service</h2>
+                <form id="bookingForm" action="#" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                        <div class="error" id="nameError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        <div class="error" id="emailError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                        <div class="error" id="phoneError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <select id="location" name="location" required>
+                            <option value="">Select a location</option>
+                            <option value="location1">26 Nkorman ansah estate, GRA Abia state</option>
+                            <option value="location2">12 Muri Okunola Street, Ajah Lagos</option>
+                            <option value="location3">156 Ojo Alaba, Ibadan Oyo state</option>
+                            <option value="location4">11b Toyin Street, Ikeja Lagos</option>
+                            <option value="location5">45 Balarabe Musa Crescent, Victoria Island Lagos</option>
+                            <option value="location6">17 Allen Avenue, Ikeja Lagos</option>
+                        </select>
+                        <div class="error" id="locationError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Preferred Date</label>
+                        <input type="date" id="date" name="date" required>
+                        <div class="error" id="dateError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Preferred Time</label>
+                        <input type="time" id="time" name="time" required>
+                        <div class="error" id="timeError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="make">Car Make</label>
+                        <input type="text" id="make" name="make" placeholder="Enter car make (e.g., Toyota)" required>
+                        <div class="error" id="makeError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="model">Car Model</label>
+                        <input type="text" id="model" name="model" placeholder="Enter car model (e.g., Camry)" required>
+                        <div class="error" id="modelError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Car Year</label>
+                        <input type="number" id="year" name="year" placeholder="Enter car year" required min="1900" max="2024">
+                        <div class="error" id="yearError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="licensePlate">License Plate</label>
+                        <input type="text" id="licensePlate" name="licensePlate" placeholder="Enter license plate number" required>
+                        <div class="error" id="licensePlateError"></div>
+                    </div>
+                    <button type="submit" class="submit-btn">Book Service</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('bookingForm');
+
+            function validateField(field, errorElement, validationFn, errorMessage) {
+                const value = field.value.trim();
+                if (!validationFn(value)) {
+                    errorElement.textContent = errorMessage;
+                    field.classList.add('invalid');
+                    return false;
+                } else {
+                    errorElement.textContent = '';
+                    field.classList.remove('invalid');
+                    return true;
+                }
+            }
+
+            function validateName(name) {
+                return name.length >= 2 && /^[a-zA-Z\s]+$/.test(name);
+            }
+
+            function validateEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+
+            function validatePhone(phone) {
+                return /^[0-9]{10,14}$/.test(phone.replace(/\s+/g, ''));
+            }
+
+            function validateYear(year) {
+                const yearNum = parseInt(year);
+                return yearNum >= 1900 && yearNum <= new Date().getFullYear();
+            }
+
+            function validateLicensePlate(plate) {
+                return /^[A-Z0-9\s-]+$/.test(plate);
+            }
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                let isValid = true;
+
+                // Validate each field
+                isValid &= validateField(
+                    document.getElementById('name'), 
+                    document.getElementById('nameError'), 
+                    validateName, 
+                    'Please enter a valid name (minimum 2 characters, letters only)'
+                );
+
+                isValid &= validateField(
+                    document.getElementById('email'), 
+                    document.getElementById('emailError'), 
+                    validateEmail, 
+                    'Please enter a valid email address'
+                );
+
+                isValid &= validateField(
+                    document.getElementById('phone'), 
+                    document.getElementById('phoneError'), 
+                    validatePhone, 
+                    'Please enter a valid phone number (10-14 digits)'
+                );
+
+                isValid &= validateField(
+                    document.getElementById('location'), 
+                    document.getElementById('locationError'), 
+                    value => value !== '', 
+                    'Please select a location'
+                );
+
+                isValid &= validateField(
+                    document.getElementById('date'), 
+                    document.getElementById('dateError'), 
+                    value => value !== '', 
+                    'Please select a date'
+                );
+
+                isValid &= validateField(
+                    document.getElementById('time'), 
+                    document.getElementById('timeError'), 
+                    value => value !== '', 
+                    'Please select a time'
+                );
+
+                isValid &= validateField(
+                    document.getElementById('make'), 
+                    document.getElementById('makeError'), 
+                    validateName, 
+                    'Please enter a valid car make'
+                );
+
+                isValid &= validateField(
+                    document.getElementById('model'), 
+                    document.getElementById('modelError'), 
+                    validateName, 
+                    'Please enter a valid car model'
+                );
+
+                isValid &= validateField(
+                    document.getElementById('year'), 
+                    document.getElementById('yearError'), 
+                    validateYear, 
+                    'Please enter a valid car year (1900-2024)'
+                );
+
+                isValid &= validateField(
+                    document.getElementById('licensePlate'), 
+                    document.getElementById('licensePlateError'), 
+                    validateLicensePlate, 
+                    'Please enter a valid license plate'
+                );
+
+                if (isValid) {
+                    alert('Booking submitted successfully!');
+                    form.reset();
+                }
+            });
+
+            // Optional: Add real-time validation
+            const inputs = form.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    const fieldValidations = {
+                        'name': [validateName, 'Please enter a valid name'],
+                        'email': [validateEmail, 'Please enter a valid email'],
+                        'phone': [validatePhone, 'Please enter a valid phone number'],
+                        'location': [value => value !== '', 'Please select a location'],
+                        'date': [value => value !== '', 'Please select a date'],
+                        'time': [value => value !== '', 'Please select a time'],
+                        'make': [validateName, 'Please enter a valid car make'],
+                        'model': [validateName, 'Please enter a valid car model'],
+                        'year': [validateYear, 'Please enter a valid car year'],
+                        'licensePlate': [validateLicensePlate, 'Please enter a valid license plate']
+                    };
+
+                    if (fieldValidations[this.id]) {
+                        const [validationFn, errorMsg] = fieldValidations[this.id];
+                        validateField(
+                            this, 
+                            document.getElementById(this.id + 'Error'), 
+                            validationFn, 
+                            errorMsg
+                        );
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

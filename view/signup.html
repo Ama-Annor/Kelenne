@@ -7,10 +7,8 @@
     <link rel="stylesheet" href="../assets/css/signup.css">
     <link rel="stylesheet" href="../assets/css/index.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    
 </head>
 <body>
-
     <!-- Header -->
     <header class="header">
         <div class="nav-container">
@@ -63,6 +61,26 @@
                         <span class="error-message" id="phoneError"></span>
                     </div>
                     <div class="input-group">
+                        <input type="text" id="carMake" required>
+                        <label>Car Make</label>
+                        <span class="error-message" id="carMakeError"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="carModel" required>
+                        <label>Car Model</label>
+                        <span class="error-message" id="carModelError"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="carYear" required min="1900" max="2024">
+                        <label>Car Year</label>
+                        <span class="error-message" id="carYearError"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="licensePlate" required>
+                        <label>License Plate</label>
+                        <span class="error-message" id="licensePlateError"></span>
+                    </div>
+                    <div class="input-group">
                         <input type="password" id="password" required>
                         <label>Password</label>
                         <span class="error-message" id="passwordError"></span>
@@ -71,6 +89,11 @@
                         <input type="password" id="confirmPassword" required>
                         <label>Confirm Password</label>
                         <span class="error-message" id="confirmPasswordError"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="secretKey" required>
+                        <label>Secret Key</label>
+                        <span class="error-message" id="secretKeyError"></span>
                     </div>
                     <button type="submit" class="signup-button">Create Account</button>
                     <div class="login-link">
@@ -81,8 +104,6 @@
         </div>
     </div>
     <br>  <br>  <br> <br>
-    
-    
 
     <script>
         function validateForm(event) {
@@ -127,6 +148,39 @@
                 isValid = false;
             }
             
+            // Car Make validation
+            const carMake = document.getElementById('carMake');
+            if (!/^[a-zA-Z\s]{2,30}$/.test(carMake.value.trim())) {
+                document.getElementById('carMakeError').textContent = 'Please enter a valid car make';
+                document.getElementById('carMakeError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Car Model validation
+            const carModel = document.getElementById('carModel');
+            if (!/^[a-zA-Z0-9\s-]{2,30}$/.test(carModel.value.trim())) {
+                document.getElementById('carModelError').textContent = 'Please enter a valid car model';
+                document.getElementById('carModelError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Car Year validation
+            const carYear = document.getElementById('carYear');
+            const currentYear = new Date().getFullYear();
+            if (carYear.value < 1900 || carYear.value > currentYear) {
+                document.getElementById('carYearError').textContent = `Please enter a valid year between 1900 and ${currentYear}`;
+                document.getElementById('carYearError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // License Plate validation
+            const licensePlate = document.getElementById('licensePlate');
+            if (!/^[A-Z0-9\s-]{2,10}$/.test(licensePlate.value.trim())) {
+                document.getElementById('licensePlateError').textContent = 'Please enter a valid license plate';
+                document.getElementById('licensePlateError').style.display = 'block';
+                isValid = false;
+            }
+            
             // Password validation
             const password = document.getElementById('password');
             const confirmPassword = document.getElementById('confirmPassword');
@@ -143,9 +197,21 @@
                 isValid = false;
             }
             
+            // Secret Key validation
+            const secretKey = document.getElementById('secretKey');
+            // This is a placeholder validation. In a real-world scenario, 
+            // you'd want to implement a more secure method of key validation
+            if (secretKey.value.trim() === '') {
+                document.getElementById('secretKeyError').textContent = 'Please enter a secret key';
+                document.getElementById('secretKeyError').style.display = 'block';
+                isValid = false;
+            }
+            
             if (isValid) {
                 // Form would be submitted here
                 console.log('Form is valid, ready to submit');
+                // You could add additional logic here to check the secret key 
+                // to determine if the user is a customer or an employee
             }
             
             return false;
