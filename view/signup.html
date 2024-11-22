@@ -3,219 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelenne Car Wash - Login</title>
+    <title>Kelenne Car Wash - Sign Up</title>
     <link rel="stylesheet" href="../assets/css/signup.css">
     <link rel="stylesheet" href="../assets/css/index.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="nav-container">
-            <div class="logo">KELENNE<span> CAR WASH</span></div>
-            <nav>
-                <a href="../index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-                <a href="locations.html">Locations</a>
-                <a href="login.html">Login</a>
-            </nav>
+<!-- Header -->
+<header class="header">
+    <div class="nav-container">
+        <div class="logo">KELENNE<span> CAR WASH</span></div>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="locations.html">Locations</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </div>
+</header>
+<br>  <br>  <br> <br>
+<div class="container">
+    <div class="signup-container">
+        <div class="signup-image">
+            <div class="image-overlay">
+                <h2>Join Our Premium Service</h2>
+                <ul>
+                    <li><i class='bx bx-check-circle'></i> Express & Premium Wash Services</li>
+                    <li><i class='bx bx-check-circle'></i> Monthly Membership Benefits</li>
+                    <li><i class='bx bx-check-circle'></i> Mobile App Integration</li>
+                    <li><i class='bx bx-check-circle'></i> Priority Scheduling</li>
+                </ul>
+            </div>
         </div>
-    </header>
-    <br>  <br>  <br> <br>
-    <div class="container">
-        <div class="signup-container">
-            <div class="signup-image">
-                <div class="image-overlay">
-                    <h2>Join Our Premium Service</h2>
-                    <ul>
-                        <li><i class='bx bx-check-circle'></i> Express & Premium Wash Services</li>
-                        <li><i class='bx bx-check-circle'></i> Monthly Membership Benefits</li>
-                        <li><i class='bx bx-check-circle'></i> Mobile App Integration</li>
-                        <li><i class='bx bx-check-circle'></i> Priority Scheduling</li>
-                    </ul>
+        <div class="signup-form">
+            <h2>Create Account</h2>
+            <form id="signupForm" action="../actions/signup.php" onsubmit="return validateForm(event)">
+                <div class="input-group">
+                    <input type="text" id="fname" required>
+                    <label>First Name</label>
+                    <span class="error-message" id="fnameError"></span>
                 </div>
-            </div>
-            <div class="signup-form">
-                <h2>Create Account</h2>
-                <form id="signupForm" onsubmit="return validateForm(event)">
-                    <div class="input-group">
-                        <input type="text" id="fname" required>
-                        <label>First Name</label>
-                        <span class="error-message" id="fnameError"></span>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="lname" required>
-                        <label>Last Name</label>
-                        <span class="error-message" id="lnameError"></span>
-                    </div>
-                    <div class="input-group">
-                        <input type="email" id="email" required>
-                        <label>Email Address</label>
-                        <span class="error-message" id="emailError"></span>
-                    </div>
-                    <div class="input-group">
-                        <input type="tel" id="phone" required>
-                        <label>Phone Number</label>
-                        <span class="error-message" id="phoneError"></span>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="carMake" required>
-                        <label>Car Make</label>
-                        <span class="error-message" id="carMakeError"></span>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="carModel" required>
-                        <label>Car Model</label>
-                        <span class="error-message" id="carModelError"></span>
-                    </div>
-                    <div class="input-group">
-                        <input type="number" id="carYear" required min="1900" max="2024">
-                        <label>Car Year</label>
-                        <span class="error-message" id="carYearError"></span>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="licensePlate" required>
-                        <label>License Plate</label>
-                        <span class="error-message" id="licensePlateError"></span>
-                    </div>
-                    <div class="input-group">
-                        <input type="password" id="password" required>
-                        <label>Password</label>
-                        <span class="error-message" id="passwordError"></span>
-                    </div>
-                    <div class="input-group">
-                        <input type="password" id="confirmPassword" required>
-                        <label>Confirm Password</label>
-                        <span class="error-message" id="confirmPasswordError"></span>
-                    </div>
-                    <div class="input-group">
-                        <input type="password" id="secretKey" required>
-                        <label>Secret Key</label>
-                        <span class="error-message" id="secretKeyError"></span>
-                    </div>
-                    <button type="submit" class="signup-button">Create Account</button>
-                    <div class="login-link">
-                        <p>Already have an account? <a href="#">Sign In</a></p>
-                    </div>
-                </form>
-            </div>
+                <div class="input-group">
+                    <input type="text" id="lname" required>
+                    <label>Last Name</label>
+                    <span class="error-message" id="lnameError"></span>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="email" required>
+                    <label>Email Address</label>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+                <div class="input-group">
+                    <input type="tel" id="phone" required>
+                    <label>Phone Number</label>
+                    <span class="error-message" id="phoneError"></span>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="carMake">
+                    <label>Car Make</label>
+                    <span class="error-message" id="carMakeError"></span>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="carModel">
+                    <label>Car Model</label>
+                    <span class="error-message" id="carModelError"></span>
+                </div>
+                <div class="input-group">
+                    <input type="number" id="carYear" min="1900">
+                    <label>Car Year</label>
+                    <span class="error-message" id="carYearError"></span>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="licensePlate">
+                    <label>License Plate</label>
+                    <span class="error-message" id="licensePlateError"></span>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" required>
+                    <label>Password</label>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="confirmPassword" required>
+                    <label>Confirm Password</label>
+                    <span class="error-message" id="confirmPasswordError"></span>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="secretKey">
+                    <label>Secret Key</label>
+                    <span class="error-message" id="secretKeyError"></span>
+                </div>
+                <button type="submit" class="signup-button">Create Account</button>
+                <div class="login-link">
+                    <p>Already have an account? <a href="login.html">Sign In</a></p>
+                </div>
+            </form>
         </div>
     </div>
-    <br>  <br>  <br> <br>
+</div>
+<br>  <br>  <br> <br>
 
-    <script>
-        function validateForm(event) {
-            event.preventDefault();
-            
-            // Reset all error messages
-            document.querySelectorAll('.error-message').forEach(error => {
-                error.style.display = 'none';
-            });
-            
-            let isValid = true;
-            
-            // First Name validation
-            const fname = document.getElementById('fname');
-            if (!/^[a-zA-Z-' ]{2,30}$/.test(fname.value.trim())) {
-                document.getElementById('fnameError').textContent = 'Please enter a valid first name';
-                document.getElementById('fnameError').style.display = 'block';
-                isValid = false;
-            }
-            
-            // Last Name validation
-            const lname = document.getElementById('lname');
-            if (!/^[a-zA-Z-' ]{2,30}$/.test(lname.value.trim())) {
-                document.getElementById('lnameError').textContent = 'Please enter a valid last name';
-                document.getElementById('lnameError').style.display = 'block';
-                isValid = false;
-            }
-            
-            // Email validation
-            const email = document.getElementById('email');
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-                document.getElementById('emailError').textContent = 'Please enter a valid email address';
-                document.getElementById('emailError').style.display = 'block';
-                isValid = false;
-            }
-            
-            // Phone validation
-            const phone = document.getElementById('phone');
-            if (!/^\d{10}$/.test(phone.value.replace(/\D/g, ''))) {
-                document.getElementById('phoneError').textContent = 'Please enter a valid 10-digit phone number';
-                document.getElementById('phoneError').style.display = 'block';
-                isValid = false;
-            }
-            
-            // Car Make validation
-            const carMake = document.getElementById('carMake');
-            if (!/^[a-zA-Z\s]{2,30}$/.test(carMake.value.trim())) {
-                document.getElementById('carMakeError').textContent = 'Please enter a valid car make';
-                document.getElementById('carMakeError').style.display = 'block';
-                isValid = false;
-            }
-            
-            // Car Model validation
-            const carModel = document.getElementById('carModel');
-            if (!/^[a-zA-Z0-9\s-]{2,30}$/.test(carModel.value.trim())) {
-                document.getElementById('carModelError').textContent = 'Please enter a valid car model';
-                document.getElementById('carModelError').style.display = 'block';
-                isValid = false;
-            }
-            
-            // Car Year validation
-            const carYear = document.getElementById('carYear');
-            const currentYear = new Date().getFullYear();
-            if (carYear.value < 1900 || carYear.value > currentYear) {
-                document.getElementById('carYearError').textContent = `Please enter a valid year between 1900 and ${currentYear}`;
-                document.getElementById('carYearError').style.display = 'block';
-                isValid = false;
-            }
-            
-            // License Plate validation
-            const licensePlate = document.getElementById('licensePlate');
-            if (!/^[A-Z0-9\s-]{2,10}$/.test(licensePlate.value.trim())) {
-                document.getElementById('licensePlateError').textContent = 'Please enter a valid license plate';
-                document.getElementById('licensePlateError').style.display = 'block';
-                isValid = false;
-            }
-            
-            // Password validation
-            const password = document.getElementById('password');
-            const confirmPassword = document.getElementById('confirmPassword');
-            
-            if (password.value.length < 8) {
-                document.getElementById('passwordError').textContent = 'Password must be at least 8 characters long';
-                document.getElementById('passwordError').style.display = 'block';
-                isValid = false;
-            }
-            
-            if (password.value !== confirmPassword.value) {
-                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
-                document.getElementById('confirmPasswordError').style.display = 'block';
-                isValid = false;
-            }
-            
-            // Secret Key validation
-            const secretKey = document.getElementById('secretKey');
-            // This is a placeholder validation. In a real-world scenario, 
-            // you'd want to implement a more secure method of key validation
-            if (secretKey.value.trim() === '') {
-                document.getElementById('secretKeyError').textContent = 'Please enter a secret key';
-                document.getElementById('secretKeyError').style.display = 'block';
-                isValid = false;
-            }
-            
-            if (isValid) {
-                // Form would be submitted here
-                console.log('Form is valid, ready to submit');
-                // You could add additional logic here to check the secret key 
-                // to determine if the user is a customer or an employee
-            }
-            
-            return false;
+<script>
+    function validateForm(event) {
+        event.preventDefault();
+
+        // Reset all error messages
+        document.querySelectorAll('.error-message').forEach(error => {
+            error.style.display = 'none';
+        });
+
+        let isValid = true;
+
+        // First Name validation
+        const fname = document.getElementById('fname');
+        if (!/^[a-zA-Z-' ]{2,30}$/.test(fname.value.trim())) {
+            document.getElementById('fnameError').textContent = 'Please enter a valid first name';
+            document.getElementById('fnameError').style.display = 'block';
+            isValid = false;
         }
-    </script>
+
+        // Last Name validation
+        const lname = document.getElementById('lname');
+        if (!/^[a-zA-Z-' ]{2,30}$/.test(lname.value.trim())) {
+            document.getElementById('lnameError').textContent = 'Please enter a valid last name';
+            document.getElementById('lnameError').style.display = 'block';
+            isValid = false;
+        }
+
+        // Email validation
+        const email = document.getElementById('email');
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+            document.getElementById('emailError').textContent = 'Please enter a valid email address';
+            document.getElementById('emailError').style.display = 'block';
+            isValid = false;
+        }
+
+        // Phone validation
+        const phone = document.getElementById('phone');
+        if (!/^\d{10}$/.test(phone.value.replace(/\D/g, ''))) {
+            document.getElementById('phoneError').textContent = 'Please enter a valid 10-digit phone number';
+            document.getElementById('phoneError').style.display = 'block';
+            isValid = false;
+        }
+
+        // Password validation
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+
+        if (password.value.length < 8) {
+            document.getElementById('passwordError').textContent = 'Password must be at least 8 characters long';
+            document.getElementById('passwordError').style.display = 'block';
+            isValid = false;
+        }
+
+        if (password.value !== confirmPassword.value) {
+            document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+            document.getElementById('confirmPasswordError').style.display = 'block';
+            isValid = false;
+        }
+
+        // Secret Key validation
+        const secretKey = document.getElementById('secretKey');
+        // This is a placeholder validation. In a real-world scenario,
+        // you'd want to implement a more secure method of key validation
+        if (secretKey.value.trim() === '') {
+            document.getElementById('secretKeyError').textContent = 'Please enter a secret key';
+            document.getElementById('secretKeyError').style.display = 'block';
+            isValid = false;
+        }
+
+        if (isValid) {
+            // Explicitly create form data
+            const formData = new URLSearchParams();
+            formData.append('fname', fname.value.trim());
+            formData.append('lname', lname.value.trim());
+            formData.append('email', email.value);
+            formData.append('phone', phone.value.replace(/\D/g, ''));
+            formData.append('password', password.value);
+            formData.append('confirmPassword', confirmPassword.value);
+            formData.append('secretKey', secretKey.value);
+
+            // Optional car details
+            formData.append('carMake', document.getElementById('carMake').value.trim());
+            formData.append('carModel', document.getElementById('carModel').value.trim());
+            formData.append('carYear', document.getElementById('carYear').value);
+            formData.append('licensePlate', document.getElementById('licensePlate').value.trim());
+
+            fetch('../actions/signup.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = data.redirect;
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred during signup.');
+                });
+        }
+    }
+</script>
 </body>
 </html>
