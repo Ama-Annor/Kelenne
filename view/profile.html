@@ -1,346 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelenne Car Wash - Customer Profile</title>
-    <link rel="stylesheet" href="../../assets/css/dashboard.css">
-    <link rel="stylesheet" href="../assets/css/inventory.css">
-    <link rel="stylesheet" href="../assets/css/index.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <style>
-        .profile-container {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            max-width: 800px;
-            margin: 0 auto;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kelenne Car Wash - Customer Profile</title>
+  <link rel="stylesheet" href="../../assets/css/dashboard.css">
+  <link rel="stylesheet" href="../assets/css/inventory.css">
+  <link rel="stylesheet" href="../assets/css/index.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    .profile-container {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      max-width: 800px;
+      margin: 0 auto;
+    }
 
-        .profile-form {
-            display: grid;
-            gap: 20px;
-        }
+    .profile-form {
+      display: grid;
+      gap: 20px;
+    }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
 
-        .form-group label {
-            margin-bottom: 5px;
-            color: var(--text-dark);
-            font-weight: 500;
-        }
+    .form-group label {
+      margin-bottom: 5px;
+      color: var(--text-dark);
+      font-weight: 500;
+    }
 
-        .form-group input {
-            padding: 10px;
-            border: 1px solid var(--accent-silver);
-            border-radius: 5px;
-            font-size: 1rem;
-        }
+    .form-group input {
+      padding: 10px;
+      border: 1px solid var(--accent-silver);
+      border-radius: 5px;
+      font-size: 1rem;
+    }
 
-        .form-group.error input {
-            border-color: #ff4d4d;
-        }
+    .form-group.error input {
+      border-color: #ff4d4d;
+    }
 
-        .error-message {
-            color: #ff4d4d;
-            font-size: 0.8rem;
-            margin-top: 5px;
-        }
+    .error-message {
+      color: #ff4d4d;
+      font-size: 0.8rem;
+      margin-top: 5px;
+    }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
 
-        .submit-btn {
-            background: var(--primary-blue);
-            color: var(--white);
-            border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
+    .submit-btn {
+      background: var(--primary-blue);
+      color: var(--white);
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
 
-        .submit-btn:hover {
-            background: var(--secondary-blue);
-        }
+    .submit-btn:hover {
+      background: var(--secondary-blue);
+    }
 
-        .submit-btn:disabled {
-            background: #a0a0a0;
-            cursor: not-allowed;
-        }
-    </style>
+    .submit-btn:disabled {
+      background: #a0a0a0;
+      cursor: not-allowed;
+    }
+  </style>
 </head>
 <body>
-    <div class="dashboard-container">
-        <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-            <div class="logo">
-                <i class='bx bxs-car-wash'></i>
-                <span>KELENNE</span>
-            </div>
-            <nav>
-                <a href="bookNow.html" class="menu-item">
-                    <i class='bx bx-calendar-plus'></i>
-                    <span>Book a Service</span>
-                </a>
-                <a href="admin/dashboard.html" class="menu-item">
-                    <i class='bx bx-home'></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="appointments.html" class="menu-item">
-                    <i class='bx bx-calendar'></i>
-                    <span>Appointments</span>
-                </a>
-                <a href="employee.html" class="menu-item">
-                    <i class='bx bx-user'></i>
-                    <span>Employees</span>
-                </a>
-                <a href="payments.html" class="menu-item">
-                    <i class='bx bx-dollar'></i>
-                    <span>Payments</span>
-                </a>
-                <a href="revenue-analytics.html" class="menu-item">
-                    <i class='bx bx-line-chart'></i>
-                    <span>Analytics</span>
-                </a>
-                <a href="inventory.html" class="menu-item">
-                    <i class='bx bx-box'></i>
-                    <span>Inventory</span>
-                </a>
-                <a href="customers.html" class="menu-item">
-                    <i class='bx bx-group'></i>
-                    <span>Customers</span>
-                </a>
-                <a href="dashboardservices.html" class="menu-item">
-                    <i class='bx bx-list-ul'></i>
-                    <span>Services</span>
-                </a>
-                <a href="equipments.html" class="menu-item">
-                    <i class='bx bx-wrench'></i>
-                    <span>Equipment</span>
-                </a>
-                <a href="promotions.html" class="menu-item">
-                    <i class='bx bx-gift'></i>
-                    <span>Promotions & Rewards</span>
-                </a>
-                <a href="profile.html" class="menu-item">
-                    <i class='bx bx-user'></i>
-                    <span>Profile Settings</span>
-                </a>
-            </nav>
-        </div>
-
-        <div class="main-content">
-            <div class="profile-container">
-                <h2 style="margin-bottom: 20px; color: var(--primary-blue);">Customer Profile</h2>
-                <form class="profile-form" id="profileForm" novalidate>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" name="firstName" required minlength="2" maxlength="50">
-                            <div class="error-message"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" name="lastName" required minlength="2" maxlength="50">
-                            <div class="error-message"></div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" required>
-                            <div class="error-message"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" required 
-                                   pattern="^[0-9]{10,14}$" 
-                                   placeholder="10-14 digit phone number">
-                            <div class="error-message"></div>
-                        </div>
-                    </div>
-
-                    <h3 style="margin: 20px 0 10px; color: var(--text-dark);">Car Details</h3>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="carMake">Car Make</label>
-                            <input type="text" id="carMake" name="carMake" 
-                                   required minlength="2" maxlength="50"
-                                   placeholder="e.g., Toyota, Honda, Ford">
-                            <div class="error-message"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="carModel">Car Model</label>
-                            <input type="text" id="carModel" name="carModel" required minlength="2" maxlength="50">
-                            <div class="error-message"></div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="carYear">Year</label>
-                            <select id="carYear" name="carYear" required>
-                                <option value="">Select Year</option>
-                                <!-- Dynamically generate years from 1990 to current year -->
-                            </select>
-                            <div class="error-message"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="licensePlate">License Plate Number</label>
-                            <input type="text" id="licensePlate" name="licensePlate" 
-                                   required minlength="6" maxlength="10" 
-                                   pattern="^[A-Za-z0-9\s-]+$"
-                                   placeholder="Enter license plate">
-                            <div class="error-message"></div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="submit-btn" disabled>Update Profile</button>
-                </form>
-            </div>
-        </div>
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="logo">
+      <i class='bx bxs-car-wash'></i>
+      <span>KELENNE</span>
     </div>
+    <nav>
+      <a href="bookNow.html" class="menu-item">
+        <i class='bx bx-calendar-plus'></i>
+        <span>Book a Service</span>
+      </a>
+      <a href="admin/dashboard.html" class="menu-item">
+        <i class='bx bx-home'></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="appointments.html" class="menu-item">
+        <i class='bx bx-calendar'></i>
+        <span>Appointments</span>
+      </a>
+      <a href="employee.html" class="menu-item">
+        <i class='bx bx-user'></i>
+        <span>Employees</span>
+      </a>
+      <a href="payments.html" class="menu-item">
+        <i class='bx bx-dollar'></i>
+        <span>Payments</span>
+      </a>
+      <a href="revenue-analytics.html" class="menu-item">
+        <i class='bx bx-line-chart'></i>
+        <span>Analytics</span>
+      </a>
+      <a href="inventory.html" class="menu-item">
+        <i class='bx bx-box'></i>
+        <span>Inventory</span>
+      </a>
+      <a href="customers.html" class="menu-item">
+        <i class='bx bx-group'></i>
+        <span>Customers</span>
+      </a>
+      <a href="dashboardservices.html" class="menu-item">
+        <i class='bx bx-list-ul'></i>
+        <span>Services</span>
+      </a>
+      <a href="equipments.html" class="menu-item">
+        <i class='bx bx-wrench'></i>
+        <span>Equipment</span>
+      </a>
+      <a href="promotions.html" class="menu-item">
+        <i class='bx bx-gift'></i>
+        <span>Promotions & Rewards</span>
+      </a>
+      <a href="profile.html" class="menu-item">
+        <i class='bx bx-user'></i>
+        <span>Profile Settings</span>
+      </a>
+    </nav>
+  </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Dynamically populate car years
-            const yearSelect = document.getElementById('carYear');
-            const currentYear = new Date().getFullYear();
-            for (let year = currentYear; year >= 1990; year--) {
-                const option = document.createElement('option');
-                option.value = year;
-                option.textContent = year;
-                yearSelect.appendChild(option);
-            }
+  <div class="main-content">
+    <div class="profile-container">
+      <h2 style="margin-bottom: 20px; color: var(--primary-blue);">Customer Profile</h2>
+      <form class="profile-form" id="profileForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required minlength="2" maxlength="50">
+            <div class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required minlength="2" maxlength="50">
+            <div class="error-message"></div>
+          </div>
+        </div>
 
-            // Get form and all input elements
-            const form = document.getElementById('profileForm');
-            const inputs = form.querySelectorAll('input, select');
-            const submitButton = form.querySelector('.submit-btn');
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required
+                   pattern="^[0-9]{10,14}$"
+                   placeholder="10-14 digit phone number">
+            <div class="error-message"></div>
+          </div>
+        </div>
 
-            // Validation functions
-            const validationRules = {
-                firstName: {
-                    validate: (value) => value.length >= 2 && value.length <= 50,
-                    errorMessage: 'First name must be 2-50 characters long'
-                },
-                lastName: {
-                    validate: (value) => value.length >= 2 && value.length <= 50,
-                    errorMessage: 'Last name must be 2-50 characters long'
-                },
-                email: {
-                    validate: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
-                    errorMessage: 'Please enter a valid email address'
-                },
-                phone: {
-                    validate: (value) => /^[0-9]{10,14}$/.test(value),
-                    errorMessage: 'Phone number must be 10-14 digits'
-                },
-                carMake: {
-                    validate: (value) => value.length >= 2 && value.length <= 50,
-                    errorMessage: 'Car make must be 2-50 characters long'
-                },
-                carModel: {
-                    validate: (value) => value.length >= 2 && value.length <= 50,
-                    errorMessage: 'Car model must be 2-50 characters long'
-                },
-                carYear: {
-                    validate: (value) => value !== '',
-                    errorMessage: 'Please select a car year'
-                },
-                licensePlate: {
-                    validate: (value) => /^[A-Za-z0-9\s-]{6,10}$/.test(value),
-                    errorMessage: 'License plate must be 6-10 alphanumeric characters'
-                }
-            };
+        <h3 style="margin: 20px 0 10px; color: var(--text-dark);">Car Details</h3>
 
-            // Function to show error
-            function showError(input, message) {
-                const formGroup = input.closest('.form-group');
-                const errorMessage = formGroup.querySelector('.error-message');
-                formGroup.classList.add('error');
-                errorMessage.textContent = message;
-            }
+        <div class="form-row">
+          <div class="form-group">
+            <label for="carMake">Car Make</label>
+            <input type="text" id="carMake" name="carMake"
+                   required minlength="2" maxlength="50"
+                   placeholder="e.g., Toyota, Honda, Ford">
+            <div class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label for="carModel">Car Model</label>
+            <input type="text" id="carModel" name="carModel" required minlength="2" maxlength="50">
+            <div class="error-message"></div>
+          </div>
+        </div>
 
-            // Function to clear error
-            function clearError(input) {
-                const formGroup = input.closest('.form-group');
-                const errorMessage = formGroup.querySelector('.error-message');
-                formGroup.classList.remove('error');
-                errorMessage.textContent = '';
-            }
+        <div class="form-row">
+          <div class="form-group">
+            <label for="carYear">Year</label>
+            <select id="carYear" name="carYear" required>
+              <option value="">Select Year</option>
+              <!-- Dynamically generate years from 1990 to current year -->
+            </select>
+            <div class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label for="licensePlate">License Plate Number</label>
+            <input type="text" id="licensePlate" name="licensePlate"
+                   required minlength="6" maxlength="10"
+                   pattern="^[A-Za-z0-9\s-]+$"
+                   placeholder="Enter license plate">
+            <div class="error-message"></div>
+          </div>
+        </div>
 
-            // Validate individual input
-            function validateInput(input) {
-                const name = input.name;
-                const value = input.value.trim();
-                const rule = validationRules[name];
+        <button type="submit" class="submit-btn" disabled>Update Profile</button>
+      </form>
+    </div>
+  </div>
+</div>
 
-                if (rule) {
-                    if (!rule.validate(value)) {
-                        showError(input, rule.errorMessage);
-                        return false;
-                    } else {
-                        clearError(input);
-                        return true;
-                    }
-                }
-                return true;
-            }
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Dynamically populate car years
+    const yearSelect = document.getElementById('carYear');
+    const currentYear = new Date().getFullYear();
+    for (let year = currentYear; year >= 1990; year--) {
+      const option = document.createElement('option');
+      option.value = year;
+      option.textContent = year;
+      yearSelect.appendChild(option);
+    }
 
-            // Real-time validation
-            inputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    validateInput(this);
-                    checkFormValidity();
-                });
-            });
+    // Get form and all input elements
+    const form = document.getElementById('profileForm');
+    const inputs = form.querySelectorAll('input, select');
+    const submitButton = form.querySelector('.submit-btn');
 
-            // Check overall form validity
-            function checkFormValidity() {
-                const isValid = Array.from(inputs).every(input => {
-                    return validateInput(input);
-                });
+    // Validation functions
+    const validationRules = {
+      firstName: {
+        validate: (value) => value.length >= 2 && value.length <= 50,
+        errorMessage: 'First name must be 2-50 characters long'
+      },
+      lastName: {
+        validate: (value) => value.length >= 2 && value.length <= 50,
+        errorMessage: 'Last name must be 2-50 characters long'
+      },
+      email: {
+        validate: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+        errorMessage: 'Please enter a valid email address'
+      },
+      phone: {
+        validate: (value) => /^[0-9]{10,14}$/.test(value),
+        errorMessage: 'Phone number must be 10-14 digits'
+      },
+      carMake: {
+        validate: (value) => value.length >= 2 && value.length <= 50,
+        errorMessage: 'Car make must be 2-50 characters long'
+      },
+      carModel: {
+        validate: (value) => value.length >= 2 && value.length <= 50,
+        errorMessage: 'Car model must be 2-50 characters long'
+      },
+      carYear: {
+        validate: (value) => value !== '',
+        errorMessage: 'Please select a car year'
+      },
+      licensePlate: {
+        validate: (value) => /^[A-Za-z0-9\s-]{6,10}$/.test(value),
+        errorMessage: 'License plate must be 6-10 alphanumeric characters'
+      }
+    };
 
-                submitButton.disabled = !isValid;
-            }
+    // Function to show error
+    function showError(input, message) {
+      const formGroup = input.closest('.form-group');
+      const errorMessage = formGroup.querySelector('.error-message');
+      formGroup.classList.add('error');
+      errorMessage.textContent = message;
+    }
 
-            // Form submission handler
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Final validation before submission
-                let isValid = true;
-                inputs.forEach(input => {
-                    if (!validateInput(input)) {
-                        isValid = false;
-                    }
-                });
+    // Function to clear error
+    function clearError(input) {
+      const formGroup = input.closest('.form-group');
+      const errorMessage = formGroup.querySelector('.error-message');
+      formGroup.classList.remove('error');
+      errorMessage.textContent = '';
+    }
 
-                if (isValid) {
-                    // Collect form data
-                    const formData = new FormData(form);
-                    const profileData = Object.fromEntries(formData.entries());
+    // Validate individual input
+    function validateInput(input) {
+      const name = input.name;
+      const value = input.value.trim();
+      const rule = validationRules[name];
 
-                    // Here you would typically send this data to a backend server
-                    console.log('Profile Data:', profileData);
-                    
-                    // Show a success message (replace with actual notification system)
-                    alert('Profile updated successfully!');
-                }
-            });
-        });
-    </script>
+      if (rule) {
+        if (!rule.validate(value)) {
+          showError(input, rule.errorMessage);
+          return false;
+        } else {
+          clearError(input);
+          return true;
+        }
+      }
+      return true;
+    }
+
+    // Real-time validation
+    inputs.forEach(input => {
+      input.addEventListener('input', function() {
+        validateInput(this);
+        checkFormValidity();
+      });
+    });
+
+    // Check overall form validity
+    function checkFormValidity() {
+      const isValid = Array.from(inputs).every(input => {
+        return validateInput(input);
+      });
+
+      submitButton.disabled = !isValid;
+    }
+
+    // Form submission handler
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Final validation before submission
+      let isValid = true;
+      inputs.forEach(input => {
+        if (!validateInput(input)) {
+          isValid = false;
+        }
+      });
+
+      if (isValid) {
+        // Collect form data
+        const formData = new FormData(form);
+        const profileData = Object.fromEntries(formData.entries());
+
+        // Here you would typically send this data to a backend server
+        console.log('Profile Data:', profileData);
+
+        // Show a success message (replace with actual notification system)
+        alert('Profile updated successfully!');
+      }
+    });
+  });
+</script>
 </body>
 </html>

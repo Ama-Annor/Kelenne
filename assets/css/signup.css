@@ -186,3 +186,13 @@ body {
         font-size: 0.9rem;
     }
 }
+
+.error-alert {
+    background-color: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: center;
+}
