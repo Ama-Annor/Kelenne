@@ -5,6 +5,11 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+if (!isset($_SESSION['role']) || !isset($_SESSION['user_id'])) {
+    header("Location: ../view/login.html");
+    exit();
+}
+
 // Initialize response array
 $response = ["success" => false, "message" => ""];
 
@@ -14,13 +19,14 @@ if (isset($_SESSION['response'])) {
     unset($_SESSION['response']);
 }
 
+if ($_SESSION['role'] == 'admin') {
 // Fetch all services for the dropdown
-$servicesSql = "SELECT service_id, name FROM services";
-$servicesResult = $conn->query($servicesSql);
-$services = $servicesResult->fetch_all(MYSQLI_ASSOC);
+    $servicesSql = "SELECT service_id, name FROM services";
+    $servicesResult = $conn->query($servicesSql);
+    $services = $servicesResult->fetch_all(MYSQLI_ASSOC);
 
 // Fetch Appointments with full details
-$sql = "SELECT 
+    $sql = "SELECT 
             a.appointment_id,
             a.appointment_date,
             a.status,
@@ -34,12 +40,44 @@ $sql = "SELECT
         INNER JOIN services s ON a.service_id = s.service_id
         ORDER BY a.appointment_date DESC";
 
-$result = $conn->query($sql);
-$appointments = [];
+    $result = $conn->query($sql);
+    $appointments = [];
 
-if ($result) {
-    while ($row = $result->fetch_assoc()) {
-        $appointments[] = $row;
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $appointments[] = $row;
+        }
+    }
+}
+else if ($_SESSION['role'] == 'customer') {
+    $sql = "SELECT 
+            a.appointment_id,
+            a.appointment_date,
+            a.status,
+            u.fname,
+            u.lname,
+            u.email,
+            s.name as service_name
+        FROM appointments a
+        INNER JOIN customers c ON a.customer_id = c.customer_id
+        INNER JOIN users u ON c.user_id = u.user_id
+        INNER JOIN services s ON a.service_id = s.service_id
+        WHERE c.user_id = {$_SESSION['user_id']}  -- Moved WHERE clause before ORDER BY
+        ORDER BY a.appointment_date DESC";
+
+    // Add prepared statement to prevent SQL injection
+    $stmt = $conn->prepare($sql);
+    if ($stmt) {
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $appointments = [];
+
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $appointments[] = $row;
+            }
+        }
+        $stmt->close();
     }
 }
 
@@ -239,48 +277,72 @@ $conn->close();
             <span>KELENNE</span>
         </div>
         <nav>
-            <a href="appointments.php" class="menu-item">
-                <i class='bx bx-calendar'></i>
-                <span>Appointments</span>
-            </a>
-            <a href="employee.php" class="menu-item">
-                <i class='bx bx-user'></i>
-                <span>Employees</span>
-            </a>
-            <a href="revenue-analytics.php" class="menu-item">
-                <i class='bx bx-line-chart'></i>
-                <span>Analytics</span>
-            </a>
-            <a href="inventory.php" class="menu-item">
-                <i class='bx bx-box'></i>
-                <span>Inventory</span>
-            </a>
-            <a href="customers.php" class="menu-item">
-                <i class='bx bx-group'></i>
-                <span>Customers</span>
-            </a>
-            <a href="services.php" class="menu-item">
-                <i class='bx bx-list-ul'></i>
-                <span>Services</span>
-            </a>
-            <a href="equipment.php" class="menu-item">
-                <i class='bx bx-wrench'></i>
-                <span>Equipment</span>
-            </a>
-            <a href="promotions.php" class="menu-item">
-                <i class='bx bx-gift'></i>
-                <span>Promotions & Rewards</span>
-            </a>
-            <a href="profile.php" class="menu-item">
-                <i class='bx bx-user'></i>
-                <span>Profile Settings</span>
-            </a>
+            <?php if ($_SESSION['role'] == 'customer'): ?>
+                <a href="bookNow.php" class="menu-item">
+                    <i class='bx bx-calendar'></i>
+                    <span>Book a Service</span>
+                </a>
+                <a href="appointments.php" class="menu-item">
+                    <i class='bx bx-calendar'></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="promotions.php" class="menu-item">
+                    <i class='bx bx-gift'></i>
+                    <span>Promotions & Rewards</span>
+                </a>
+                <a href="profile.php" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Profile Settings</span>
+                </a>
+            <?php elseif ($_SESSION['role'] == 'admin'): ?>
+                <a href="appointments.php" class="menu-item">
+                    <i class='bx bx-calendar'></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="employee.php" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Employees</span>
+                </a>
+                <a href="revenue-analytics.php" class="menu-item">
+                    <i class='bx bx-line-chart'></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="inventory.php" class="menu-item">
+                    <i class='bx bx-box'></i>
+                    <span>Inventory</span>
+                </a>
+                <a href="customers.php" class="menu-item">
+                    <i class='bx bx-group'></i>
+                    <span>Customers</span>
+                </a>
+                <a href="services.php" class="menu-item">
+                    <i class='bx bx-list-ul'></i>
+                    <span>Services</span>
+                </a>
+                <a href="equipment.php" class="menu-item">
+                    <i class='bx bx-wrench'></i>
+                    <span>Equipment</span>
+                </a>
+                <a href="promotions.php" class="menu-item">
+                    <i class='bx bx-gift'></i>
+                    <span>Promotions & Rewards</span>
+                </a>
+                <a href="profile.php" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Profile Settings</span>
+                </a>
+            <?php endif; ?>
         </nav>
     </div>
 
     <div class="main-content">
         <div class="appointments-header">
             <h2>Appointments Management</h2>
+            <?php if ($_SESSION['role'] == 'customer'): ?>
+                <button class="btn btn-primary" onclick="openModal('add')">
+                    <i class='bx bx-plus'></i> New Appointment
+                </button>
+            <?php endif; ?>
         </div>
 
         <?php if ($response["message"]): ?>
@@ -332,9 +394,11 @@ $conn->close();
                                 <button class="btn-icon btn-edit" onclick="editAppointment(<?php echo $appointment['appointment_id']; ?>)">
                                     <i class='bx bx-edit'></i>
                                 </button>
-                                <button class="btn-icon btn-delete" onclick="deleteAppointment(<?php echo $appointment['appointment_id']; ?>)">
-                                    <i class='bx bx-trash'></i>
-                                </button>
+                                <?php if ($_SESSION['role'] == 'admin'): ?>
+                                    <button class="btn-icon btn-delete" onclick="deleteAppointment(<?php echo $appointment['appointment_id']; ?>)">
+                                        <i class='bx bx-trash'></i>
+                                    </button>
+                                <?php endif; ?>
                             </div>
                         </td>
                     </tr>
@@ -349,7 +413,7 @@ $conn->close();
 <div id="appointmentModal" class="modal">
     <div class="modal-content">
         <h3 id="modalTitle">Add New Appointment</h3>
-        <form id="appointmentForm" action="appointment_actions.php" method="POST">
+        <form id="appointmentForm" action="../actions/appointment_actions.php" method="POST">
             <input type="hidden" name="action" id="formAction" value="add">
             <input type="hidden" name="appointment_id" id="appointmentId" value="">
 
@@ -409,7 +473,7 @@ $conn->close();
             document.getElementById('appointmentId').value = appointmentId;
 
             // Fetch and populate appointment data
-            fetch(`appointment_actions.php?action=get&id=${appointmentId}`)
+            fetch(`../actions/appointment_actions.php?action=get&id=${appointmentId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
@@ -444,7 +508,7 @@ $conn->close();
 
     // View appointment details
     function viewAppointment(appointmentId) {
-        fetch(`appointment_actions.php?action=get&id=${appointmentId}`)
+        fetch(`../actions/appointment_actions.php?action=get&id=${appointmentId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -482,7 +546,7 @@ $conn->close();
             formData.append('action', 'delete');
             formData.append('appointment_id', appointmentId);
 
-            fetch('appointment_actions.php', {
+            fetch('../actions/appointment_actions.php', {
                 method: 'POST',
                 body: formData
             })
@@ -510,7 +574,7 @@ $conn->close();
 
         const formData = new FormData(this);
 
-        fetch('actions/appointment_actions.php', {
+        fetch('../actions/appointment_actions.php', {
             method: 'POST',
             body: formData
         })

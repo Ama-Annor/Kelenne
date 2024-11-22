@@ -31,6 +31,7 @@ while ($row = $result->fetch_assoc()) {
 $conn->close();
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -373,8 +374,8 @@ $conn->close();
                 <?php foreach ($services as $service): ?>
                     <tr data-service-id="<?php echo $service['service_id']; ?>">
                         <td><?php echo htmlspecialchars($service['name']); ?></td>
-                        <td><?php echo htmlspecialchars($service['duration']); ?></td>
-                        <td><?php echo htmlspecialchars($service['price']); ?></td>
+                        <td><?php echo htmlspecialchars($service['duration'] ?? 'Not Set'); ?></td>
+                        <td><?php echo htmlspecialchars($service['price'] ?? 'Not Set'); ?></td>
                         <td><?php echo htmlspecialchars($service['description']); ?></td>
                         <td>
                             <span class="service-status <?php echo $service['is_active'] ? 'status-active' : 'status-inactive'; ?>">
