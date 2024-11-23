@@ -7,10 +7,20 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+if (!isset($_SESSION['role']) || !isset($_SESSION['user_id'])) {
+    header("Location: login.html");
+    exit();
+}
+
+// Prevent caching
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     // Redirect to login page if not logged in
-    header('Location: view/login.html');
+    header('Location: ../view/login.html');
     exit();
 }
 
@@ -131,48 +141,67 @@ $conn->close();
             <span>KELENNE</span>
         </div>
         <nav>
-            <a href="appointments.php" class="menu-item">
-                <i class='bx bx-calendar'></i>
-                <span>Appointments</span>
-            </a>
-            <a href="employee.php" class="menu-item">
-                <i class='bx bx-user'></i>
-                <span>Employees</span>
-            </a>
-            <a href="revenue-analytics.php" class="menu-item">
-                <i class='bx bx-line-chart'></i>
-                <span>Analytics</span>
-            </a>
-            <a href="inventory.php" class="menu-item">
-                <i class='bx bx-box'></i>
-                <span>Inventory</span>
-            </a>
-            <a href="customers.php" class="menu-item">
-                <i class='bx bx-group'></i>
-                <span>Customers</span>
-            </a>
-            <a href="services.php" class="menu-item">
-                <i class='bx bx-list-ul'></i>
-                <span>Services</span>
-            </a>
-            <a href="equipment.php" class="menu-item">
-                <i class='bx bx-wrench'></i>
-                <span>Equipment</span>
-            </a>
-            <a href="promotions.php" class="menu-item">
-                <i class='bx bx-gift'></i>
-                <span>Promotions & Rewards</span>
-            </a>
-            <a href="profile.php" class="menu-item">
-                <i class='bx bx-user'></i>
-                <span>Profile Settings</span>
-            </a>
+            <?php if ($_SESSION['role'] == 'customer'): ?>
+                <a href="bookNow.php" class="menu-item">
+                    <i class='bx bx-calendar'></i>
+                    <span>Book a Service</span>
+                </a>
+                <a href="appointments.php" class="menu-item">
+                    <i class='bx bx-calendar'></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="promotions.php" class="menu-item">
+                    <i class='bx bx-gift'></i>
+                    <span>Promotions & Rewards</span>
+                </a>
+                <a href="profile.php" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Profile Settings</span>
+                </a>
+            <?php elseif ($_SESSION['role'] == 'admin'): ?>
+                <a href="appointments.php" class="menu-item">
+                    <i class='bx bx-calendar'></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="employee.php" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Employees</span>
+                </a>
+                <a href="revenue-analytics.php" class="menu-item">
+                    <i class='bx bx-line-chart'></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="inventory.php" class="menu-item">
+                    <i class='bx bx-box'></i>
+                    <span>Inventory</span>
+                </a>
+                <a href="customers.php" class="menu-item">
+                    <i class='bx bx-group'></i>
+                    <span>Customers</span>
+                </a>
+                <a href="services.php" class="menu-item">
+                    <i class='bx bx-list-ul'></i>
+                    <span>Services</span>
+                </a>
+                <a href="equipment.php" class="menu-item">
+                    <i class='bx bx-wrench'></i>
+                    <span>Equipment</span>
+                </a>
+                <a href="promotions.php" class="menu-item">
+                    <i class='bx bx-gift'></i>
+                    <span>Promotions & Rewards</span>
+                </a>
+                <a href="profile.php" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Profile Settings</span>
+                </a>
+            <?php endif; ?>
         </nav>
     </div>
 
     <div class="main-content">
         <div class="profile-container">
-            <h2 style="margin-bottom: 20px; color: var(--primary-blue);">Customer Profile</h2>
+            <h2 style="margin-bottom: 20px; color: var(--primary-blue);">User Profile</h2>
             <form class="profile-form" id="profileForm" action="../actions/update_profile.php" method="POST">
             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
 
@@ -354,6 +383,19 @@ $conn->close();
             }
         });
     });
+</script>
+<script type="text/javascript">
+    (function() {
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+
+        window.onpageshow = function(event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        };
+    })();
 </script>
 </body>
 </html>

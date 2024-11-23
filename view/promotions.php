@@ -7,6 +7,16 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+if (!isset($_SESSION['role']) || !isset($_SESSION['user_id'])) {
+    header("Location: login.html");
+    exit();
+}
+
+// Prevent caching
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
 $response = ["success" => false, "message" => ""];
 
 // Total Promotions
@@ -235,42 +245,61 @@ $conn->close();
             <span>KELENNE</span>
         </div>
         <nav>
-            <a href="appointments.php" class="menu-item">
-                <i class='bx bx-calendar'></i>
-                <span>Appointments</span>
-            </a>
-            <a href="employee.php" class="menu-item">
-                <i class='bx bx-user'></i>
-                <span>Employees</span>
-            </a>
-            <a href="revenue-analytics.php" class="menu-item">
-                <i class='bx bx-line-chart'></i>
-                <span>Analytics</span>
-            </a>
-            <a href="inventory.php" class="menu-item">
-                <i class='bx bx-box'></i>
-                <span>Inventory</span>
-            </a>
-            <a href="customers.php" class="menu-item">
-                <i class='bx bx-group'></i>
-                <span>Customers</span>
-            </a>
-            <a href="services.php" class="menu-item">
-                <i class='bx bx-list-ul'></i>
-                <span>Services</span>
-            </a>
-            <a href="equipment.php" class="menu-item">
-                <i class='bx bx-wrench'></i>
-                <span>Equipment</span>
-            </a>
-            <a href="promotions.php" class="menu-item">
-                <i class='bx bx-gift'></i>
-                <span>Promotions & Rewards</span>
-            </a>
-            <a href="profile.php" class="menu-item">
-                <i class='bx bx-user'></i>
-                <span>Profile Settings</span>
-            </a>
+            <?php if ($_SESSION['role'] == 'customer'): ?>
+                <a href="bookNow.php" class="menu-item">
+                    <i class='bx bx-calendar'></i>
+                    <span>Book a Service</span>
+                </a>
+                <a href="appointments.php" class="menu-item">
+                    <i class='bx bx-calendar'></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="promotions.php" class="menu-item">
+                    <i class='bx bx-gift'></i>
+                    <span>Promotions & Rewards</span>
+                </a>
+                <a href="profile.php" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Profile Settings</span>
+                </a>
+            <?php elseif ($_SESSION['role'] == 'admin'): ?>
+                <a href="appointments.php" class="menu-item">
+                    <i class='bx bx-calendar'></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="employee.php" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Employees</span>
+                </a>
+                <a href="revenue-analytics.php" class="menu-item">
+                    <i class='bx bx-line-chart'></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="inventory.php" class="menu-item">
+                    <i class='bx bx-box'></i>
+                    <span>Inventory</span>
+                </a>
+                <a href="customers.php" class="menu-item">
+                    <i class='bx bx-group'></i>
+                    <span>Customers</span>
+                </a>
+                <a href="services.php" class="menu-item">
+                    <i class='bx bx-list-ul'></i>
+                    <span>Services</span>
+                </a>
+                <a href="equipment.php" class="menu-item">
+                    <i class='bx bx-wrench'></i>
+                    <span>Equipment</span>
+                </a>
+                <a href="promotions.php" class="menu-item">
+                    <i class='bx bx-gift'></i>
+                    <span>Promotions & Rewards</span>
+                </a>
+                <a href="profile.php" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Profile Settings</span>
+                </a>
+            <?php endif; ?>
         </nav>
     </div>
 
@@ -285,10 +314,12 @@ $conn->close();
                 <h3>Active Promotions</h3>
                 <div class="stat-value"><?php echo htmlspecialchars($active_promotions); ?></div>
             </div>
-            <div class="stat-card">
-                <h3>Total Rewards Issued</h3>
-                <div class="stat-value"><?php echo htmlspecialchars($total_rewards); ?></div>
-            </div>
+            <?php if ($_SESSION['role'] == 'admin'): ?>
+                <div class="stat-card">
+                    <h3>Total Rewards Issued</h3>
+                    <div class="stat-value"><?php echo htmlspecialchars($total_rewards); ?></div>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="actions-bar">
             <div class="search-bar">
@@ -297,9 +328,11 @@ $conn->close();
                     <i class='bx bx-search'></i> Search
                 </button>
             </div>
-            <button class="btn btn-primary" onclick="openAddModal()">
-                <i class='bx bx-plus'></i> Add New Promotion
-            </button>
+            <?php if ($_SESSION['role'] == 'admin'): ?>
+                <button class="btn btn-primary" onclick="openAddModal()">
+                    <i class='bx bx-plus'></i> Add New Promotion
+                </button>
+            <?php endif; ?>
         </div>
 
         <div class="table-container">
@@ -311,8 +344,10 @@ $conn->close();
                     <th>Discount</th>
                     <th>Valid Until</th>
                     <th>Status</th>
-                    <th>Usage Count</th>
-                    <th>Actions</th>
+                    <?php if ($_SESSION['role'] == 'admin'): ?>
+                        <th>Usage Count</th>
+                        <th>Actions</th>
+                    <?php endif; ?>
                 </tr>
                 </thead>
                 <tbody id="promotionTableBody">
@@ -325,20 +360,22 @@ $conn->close();
                         <td><span class="service-status <?php echo $promotion['is_active'] ? 'status-active' : 'status-inactive'; ?>">
                                     <?php echo $promotion['is_active'] ? 'Active' : 'Inactive'; ?>
                                 </span></td>
-                        <td><?php echo htmlspecialchars($promotion['usage_count']); ?></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn-icon btn-view" onclick="viewPromotion(<?php echo $promotion['promotion_id']; ?>)">
-                                    <i class='bx bx-show'></i>
-                                </button>
-                                <button class="btn-icon btn-edit" onclick="editPromotion(<?php echo $promotion['promotion_id']; ?>)">
-                                    <i class='bx bx-edit'></i>
-                                </button>
-                                <button class="btn-icon btn-delete" onclick="deletePromotion(<?php echo $promotion['promotion_id']; ?>)">
-                                    <i class='bx bx-trash'></i>
-                                </button>
-                            </div>
-                        </td>
+                        <?php if ($_SESSION['role'] == 'admin'): ?>
+                            <td><?php echo htmlspecialchars($promotion['usage_count']); ?></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon btn-view" onclick="viewPromotion(<?php echo $promotion['promotion_id']; ?>)">
+                                        <i class='bx bx-show'></i>
+                                    </button>
+                                    <button class="btn-icon btn-edit" onclick="editPromotion(<?php echo $promotion['promotion_id']; ?>)">
+                                        <i class='bx bx-edit'></i>
+                                    </button>
+                                    <button class="btn-icon btn-delete" onclick="deletePromotion(<?php echo $promotion['promotion_id']; ?>)">
+                                        <i class='bx bx-trash'></i>
+                                    </button>
+                                </div>
+                            </td>
+                        <?php endif; ?>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -537,6 +574,19 @@ Usage Count: ${promotion.usage_count}
             closeModal();
         }
     }
+</script>
+<script type="text/javascript">
+    (function() {
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+
+        window.onpageshow = function(event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        };
+    })();
 </script>
 </body>
 </html>
