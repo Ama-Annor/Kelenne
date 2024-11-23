@@ -187,6 +187,9 @@ if ($result->num_rows > 0) {
                 <i class='bx bx-user'></i>
                 <span>Profile Settings</span>
             </a>
+            <a href="../actions/logout.php" class="menu-item" onclick="event.preventDefault(); logoutUser();">
+                <i class='bx bx-exit'></i>Logout
+            </a>
         </nav>
     </div>
 
@@ -396,6 +399,18 @@ if ($result->num_rows > 0) {
 </div>
 
 <script>
+    function logoutUser() {
+        // Clear sessions (usually handled on server side)
+        fetch('../../actions/logout.php', {
+            method: 'POST'
+        }).then(response => {
+            if (response.ok) {
+                // Redirect to login page after logout
+                window.location.href = 'login.html';
+            }
+        });
+    }
+
     // Function to handle API calls
     async function makeRequest(action, data) {
         try {

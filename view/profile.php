@@ -158,6 +158,9 @@ $conn->close();
                     <i class='bx bx-user'></i>
                     <span>Profile Settings</span>
                 </a>
+                <a href="../actions/logout.php" class="menu-item" onclick="event.preventDefault(); logoutUser();">
+                    <i class='bx bx-exit'></i>Logout
+                </a>
             <?php elseif ($_SESSION['role'] == 'admin'): ?>
                 <a href="appointments.php" class="menu-item">
                     <i class='bx bx-calendar'></i>
@@ -195,6 +198,9 @@ $conn->close();
                     <i class='bx bx-user'></i>
                     <span>Profile Settings</span>
                 </a>
+                <a href="../actions/logout.php" class="menu-item" onclick="event.preventDefault(); logoutUser();">
+                    <i class='bx bx-exit'></i>Logout
+                </a>
             <?php else: ?>
                 <a href="employee.php" class="menu-item">
                     <i class='bx bx-user'></i>
@@ -203,6 +209,9 @@ $conn->close();
                 <a href="profile.php" class="menu-item">
                     <i class='bx bx-user'></i>
                     <span>Profile Settings</span>
+                </a>
+                <a href="../actions/logout.php" class="menu-item" onclick="event.preventDefault(); logoutUser();">
+                    <i class='bx bx-exit'></i>Logout
                 </a>
             <?php endif; ?>
         </nav>
@@ -302,6 +311,17 @@ $conn->close();
 </div>
 
 <script>
+    function logoutUser() {
+        // Clear sessions (usually handled on server side)
+        fetch('../../actions/logout.php', {
+            method: 'POST'
+        }).then(response => {
+            if (response.ok) {
+                // Redirect to login page after logout
+                window.location.href = 'login.html';
+            }
+        });
+    }
     // Reuse the JavaScript validation from the original HTML file
     document.addEventListener('DOMContentLoaded', function() {
         // Get form and all input elements
@@ -362,6 +382,7 @@ $conn->close();
             }
             return true;
         }
+
 
         function checkFormValidity() {
             const isValid = Array.from(inputs).every(input => {

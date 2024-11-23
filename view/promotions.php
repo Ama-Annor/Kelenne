@@ -262,6 +262,9 @@ $conn->close();
                     <i class='bx bx-user'></i>
                     <span>Profile Settings</span>
                 </a>
+                <a href="../actions/logout.php" class="menu-item" onclick="event.preventDefault(); logoutUser();">
+                    <i class='bx bx-exit'></i>Logout
+                </a>
             <?php elseif ($_SESSION['role'] == 'admin'): ?>
                 <a href="appointments.php" class="menu-item">
                     <i class='bx bx-calendar'></i>
@@ -298,6 +301,9 @@ $conn->close();
                 <a href="profile.php" class="menu-item">
                     <i class='bx bx-user'></i>
                     <span>Profile Settings</span>
+                </a>
+                <a href="../actions/logout.php" class="menu-item" onclick="event.preventDefault(); logoutUser();">
+                    <i class='bx bx-exit'></i>Logout
                 </a>
             <?php endif; ?>
         </nav>
@@ -431,6 +437,18 @@ $conn->close();
 
     function closeModal() {
         document.getElementById('promotionModal').style.display = 'none';
+    }
+
+    function logoutUser() {
+        // Clear sessions (usually handled on server side)
+        fetch('../../actions/logout.php', {
+            method: 'POST'
+        }).then(response => {
+            if (response.ok) {
+                // Redirect to login page after logout
+                window.location.href = 'login.html';
+            }
+        });
     }
 
     // CRUD Operations

@@ -257,6 +257,9 @@ $analyticsData = getAnalyticsData($currentDay);
                 <i class='bx bx-user'></i>
                 <span>Profile Settings</span>
             </a>
+            <a href="../actions/logout.php" class="menu-item" onclick="event.preventDefault(); logoutUser();">
+                <i class='bx bx-exit'></i>Logout
+            </a>
         </nav>
     </div>
 
@@ -329,6 +332,19 @@ $analyticsData = getAnalyticsData($currentDay);
 </div>
 
 <script>
+
+    function logoutUser() {
+        // Clear sessions (usually handled on server side)
+        fetch('../../actions/logout.php', {
+            method: 'POST'
+        }).then(response => {
+            if (response.ok) {
+                // Redirect to login page after logout
+                window.location.href = 'login.html';
+            }
+        });
+    }
+
     // Initialize charts with PHP data
     const revenueCtx = document.getElementById('revenueChart').getContext('2d');
     const servicesCtx = document.getElementById('servicesChart').getContext('2d');
