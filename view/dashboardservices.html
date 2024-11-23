@@ -198,7 +198,7 @@
             <span class="close" onclick="closeViewModal()">&times;</span>
             <h2>Service Details</h2>
             <div id="serviceDetails">
-                <!-- Will be populated by JavaScript -->
+
             </div>
         </div>
     </div>
@@ -225,7 +225,6 @@ function viewService(id) {
     const viewModal = document.getElementById('viewServiceModal');
     const detailsContainer = document.getElementById('serviceDetails');
     
-    // Mock service details - in a real app, you'd fetch this from your backend
     const mockServiceDetails = `
         <div class="service-details">
             <p><strong>Service ID:</strong> ${id}</p>
@@ -256,7 +255,6 @@ function editService(id) {
     document.getElementById('serviceModal').style.display = 'block';
     document.getElementById('modalTitle').textContent = 'Edit Service';
     
-    // In a real app, you'd fetch the service details from your backend
     // This is mock data for demonstration
     if (id === 1) {
         document.getElementById('serviceName').value = 'Basic Wash';
@@ -275,7 +273,7 @@ function editService(id) {
 
 function deleteService(id) {
     if (confirm('Are you sure you want to delete this service? This action cannot be undone.')) {
-        // In a real app, you'd send a delete request to your backend
+
         // This is just a mock implementation
         const row = document.querySelector(`tr[data-id="${id}"]`);
         if (row) {
@@ -311,8 +309,6 @@ document.getElementById('serviceForm').addEventListener('submit', function(e) {
         status: document.getElementById('status').value
     };
     
-    // In a real app, you'd send this data to your backend
-    // For now, we'll just show a success message
     alert('Service saved successfully!');
     closeModal();
     
