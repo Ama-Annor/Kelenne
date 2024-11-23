@@ -5,6 +5,16 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+if (!isset($_SESSION['role']) || !isset($_SESSION['user_id'])) {
+    header("Location: login.html");
+    exit();
+}
+
+// Prevent caching
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
 // Initialize response array
 $response = ["success" => false, "message" => ""];
 
@@ -14,32 +24,57 @@ if (isset($_SESSION['response'])) {
     unset($_SESSION['response']);
 }
 
-// Fetch all services for the dropdown
-$servicesSql = "SELECT service_id, name FROM services";
-$servicesResult = $conn->query($servicesSql);
-$services = $servicesResult->fetch_all(MYSQLI_ASSOC);
-
-// Fetch Appointments with full details
-$sql = "SELECT 
+if ($_SESSION['role'] == 'admin') {
+    $sql = "SELECT 
             a.appointment_id,
             a.appointment_date,
             a.status,
             u.fname,
-            u.lname,
-            u.email,
-            s.name as service_name
+            u.lname
         FROM appointments a
         INNER JOIN customers c ON a.customer_id = c.customer_id
         INNER JOIN users u ON c.user_id = u.user_id
-        INNER JOIN services s ON a.service_id = s.service_id
         ORDER BY a.appointment_date DESC";
 
-$result = $conn->query($sql);
-$appointments = [];
+    $stmt = $conn->prepare($sql);
+    if ($stmt) {
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $appointments = [];
 
-if ($result) {
-    while ($row = $result->fetch_assoc()) {
-        $appointments[] = $row;
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $appointments[] = $row;
+            }
+        }
+        $stmt->close();
+    }
+}
+else if ($_SESSION['role'] == 'customer') {
+    $sql = "SELECT 
+            a.appointment_id,
+            a.appointment_date,
+            a.status,
+            u.fname,
+            u.lname
+        FROM appointments a
+        INNER JOIN customers c ON a.customer_id = c.customer_id
+        INNER JOIN users u ON c.user_id = u.user_id
+        WHERE c.user_id = {$_SESSION['user_id']}
+        ORDER BY a.appointment_date DESC";
+
+    $stmt = $conn->prepare($sql);
+    if ($stmt) {
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $appointments = [];
+
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $appointments[] = $row;
+            }
+        }
+        $stmt->close();
     }
 }
 
@@ -55,6 +90,7 @@ $conn->close();
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../assets/css/index.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/appointments.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
         /* Include your existing CSS variables and base styles */
@@ -238,48 +274,72 @@ $conn->close();
             <span>KELENNE</span>
         </div>
         <nav>
-            <a href="appointments.php" class="menu-item">
-                <i class='bx bx-calendar'></i>
-                <span>Appointments</span>
-            </a>
-            <a href="employee.php" class="menu-item">
-                <i class='bx bx-user'></i>
-                <span>Employees</span>
-            </a>
-            <a href="revenue-analytics.php" class="menu-item">
-                <i class='bx bx-line-chart'></i>
-                <span>Analytics</span>
-            </a>
-            <a href="inventory.php" class="menu-item">
-                <i class='bx bx-box'></i>
-                <span>Inventory</span>
-            </a>
-            <a href="customers.php" class="menu-item">
-                <i class='bx bx-group'></i>
-                <span>Customers</span>
-            </a>
-            <a href="services.php" class="menu-item">
-                <i class='bx bx-list-ul'></i>
-                <span>Services</span>
-            </a>
-            <a href="equipment.php" class="menu-item">
-                <i class='bx bx-wrench'></i>
-                <span>Equipment</span>
-            </a>
-            <a href="promotions.php" class="menu-item">
-                <i class='bx bx-gift'></i>
-                <span>Promotions & Rewards</span>
-            </a>
-            <a href="profile.php" class="menu-item">
-                <i class='bx bx-user'></i>
-                <span>Profile Settings</span>
-            </a>
+            <?php if ($_SESSION['role'] == 'customer'): ?>
+                <a href="bookNow.php" class="menu-item">
+                    <i class='bx bx-calendar'></i>
+                    <span>Book a Service</span>
+                </a>
+                <a href="appointments.php" class="menu-item">
+                    <i class='bx bx-calendar'></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="promotions.php" class="menu-item">
+                    <i class='bx bx-gift'></i>
+                    <span>Promotions & Rewards</span>
+                </a>
+                <a href="profile.php" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Profile Settings</span>
+                </a>
+            <?php elseif ($_SESSION['role'] == 'admin'): ?>
+                <a href="appointments.php" class="menu-item">
+                    <i class='bx bx-calendar'></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="employee.php" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Employees</span>
+                </a>
+                <a href="revenue-analytics.php" class="menu-item">
+                    <i class='bx bx-line-chart'></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="inventory.php" class="menu-item">
+                    <i class='bx bx-box'></i>
+                    <span>Inventory</span>
+                </a>
+                <a href="customers.php" class="menu-item">
+                    <i class='bx bx-group'></i>
+                    <span>Customers</span>
+                </a>
+                <a href="services.php" class="menu-item">
+                    <i class='bx bx-list-ul'></i>
+                    <span>Services</span>
+                </a>
+                <a href="equipment.php" class="menu-item">
+                    <i class='bx bx-wrench'></i>
+                    <span>Equipment</span>
+                </a>
+                <a href="promotions.php" class="menu-item">
+                    <i class='bx bx-gift'></i>
+                    <span>Promotions & Rewards</span>
+                </a>
+                <a href="profile.php" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>Profile Settings</span>
+                </a>
+            <?php endif; ?>
         </nav>
     </div>
 
     <div class="main-content">
         <div class="appointments-header">
             <h2>Appointments Management</h2>
+            <?php if ($_SESSION['role'] == 'customer'): ?>
+                <button class="btn btn-primary" onclick="openModal('add')">
+                    <i class='bx bx-plus'></i> New Appointment
+                </button>
+            <?php endif; ?>
         </div>
 
         <?php if ($response["message"]): ?>
@@ -290,15 +350,6 @@ $conn->close();
 
         <div class="search-bar">
             <input type="date" id="dateFilter" placeholder="Filter by date">
-            <input type="text" id="customerSearch" placeholder="Search customer">
-            <select id="serviceFilter">
-                <option value="">All Services</option>
-                <?php foreach ($services as $service): ?>
-                    <option value="<?php echo htmlspecialchars($service['service_id']); ?>">
-                        <?php echo htmlspecialchars($service['name']); ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
             <button class="btn btn-primary" onclick="filterAppointments()">Search</button>
         </div>
 
@@ -307,66 +358,55 @@ $conn->close();
             <table class="appointments-table" id="appointmentsTable">
                 <thead>
                 <tr>
+                    <?php if ($_SESSION['role'] == 'admin'): ?>
+                        <th>Customer Name</th>
+                    <?php endif; ?>
                     <th>Date & Time</th>
-                    <th>Customer</th>
-                    <th>Email</th>
-                    <th>Service</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
-                </thead>
                 <tbody>
-                <?php foreach ($appointments as $appointment): ?>
-                    <tr data-appointment-id="<?php echo $appointment['appointment_id']; ?>">
-                        <td><?php echo date('M d, Y h:i A', strtotime($appointment['appointment_date'])); ?></td>
-                        <td><?php echo htmlspecialchars($appointment['fname'] . ' ' . $appointment['lname']); ?></td>
-                        <td><?php echo htmlspecialchars($appointment['email']); ?></td>
-                        <td><?php echo htmlspecialchars($appointment['service_name']); ?></td>
-                        <td><?php echo htmlspecialchars($appointment['status']); ?></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn-icon btn-view" onclick="viewAppointment(<?php echo $appointment['appointment_id']; ?>)">
-                                    <i class='bx bx-show'></i>
-                                </button>
-                                <button class="btn-icon btn-edit" onclick="editAppointment(<?php echo $appointment['appointment_id']; ?>)">
-                                    <i class='bx bx-edit'></i>
-                                </button>
-                                <button class="btn-icon btn-delete" onclick="deleteAppointment(<?php echo $appointment['appointment_id']; ?>)">
-                                    <i class='bx bx-trash'></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
+                    <?php foreach ($appointments as $appointment): ?>
+                        <tr data-appointment-id="<?php echo $appointment['appointment_id']; ?>">
+                            <?php if ($_SESSION['role'] == 'admin'): ?>
+                                <td><?php echo htmlspecialchars($appointment['fname'] . ' ' . $appointment['lname']); ?></td>
+                            <?php endif; ?>
+                            <td><?php echo date('M d, Y h:i A', strtotime($appointment['appointment_date'])); ?></td>
+                            <td><?php echo htmlspecialchars($appointment['status']); ?></td>
+                            <td>
+                                <?php if ($_SESSION['role'] == 'customer'): ?>
+                                    <?php if ($appointment['status'] !== 'Confirmed'): ?>
+                                        <div class="action-buttons">
+                                            <button class="btn-icon btn-delete" onclick="deleteAppointment(<?php echo $appointment['appointment_id']; ?>)">
+                                                <i class='bx bx-trash'></i>
+                                            </button>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php elseif ($_SESSION['role'] == 'admin'): ?>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-edit" onclick="openEditModal(<?php echo $appointment['appointment_id']; ?>)">
+                                            <i class='bx bx-edit'></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete" onclick="deleteAppointment(<?php echo $appointment['appointment_id']; ?>)">
+                                            <i class='bx bx-trash'></i>
+                                        </button>
+                                    </div>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<!-- Add/Edit Appointment Modal -->
+<!-- Add Appointment Modal -->
 <div id="appointmentModal" class="modal">
     <div class="modal-content">
-        <h3 id="modalTitle">Add New Appointment</h3>
-        <form id="appointmentForm" action="appointment_actions.php" method="POST">
-            <input type="hidden" name="action" id="formAction" value="add">
-            <input type="hidden" name="appointment_id" id="appointmentId" value="">
-
-            <div class="form-group">
-                <label>Customer Email</label>
-                <input type="email" name="customer_email" id="customerEmail" required>
-            </div>
-
-            <div class="form-group">
-                <label>Service Type</label>
-                <select name="service_id" id="serviceId" required>
-                    <?php foreach ($services as $service): ?>
-                        <option value="<?php echo $service['service_id']; ?>">
-                            <?php echo htmlspecialchars($service['name']); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+        <h3>Add New Appointment</h3>
+        <form id="appointmentForm" action="../actions/appointment_actions.php" method="POST">
+            <input type="hidden" name="action" value="add">
 
             <div class="form-group">
                 <label>Date & Time</label>
@@ -374,20 +414,34 @@ $conn->close();
             </div>
 
             <div class="form-group">
-                <label>Status</label>
-                <select name="status" id="appointmentStatus" required>
+                <button type="submit" class="btn btn-primary">Book Appointment</button>
+                <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Appointment Status Modal -->
+<div id="editAppointmentModal" class="modal">
+    <div class="modal-content">
+        <h3>Update Appointment Status</h3>
+        <form id="editAppointmentForm" action="../actions/appointment_actions.php" method="POST">
+            <input type="hidden" name="action" value="update_status">
+            <input type="hidden" name="appointment_id" id="editAppointmentId">
+
+            <div class="form-group">
+                <label>Appointment Status</label>
+                <select name="status" id="editAppointmentStatus" required>
                     <option value="Scheduled">Scheduled</option>
                     <option value="Confirmed">Confirmed</option>
                     <option value="Completed">Completed</option>
                     <option value="Cancelled">Cancelled</option>
-                    <option value="In Progress">In Progress</option>
-
                 </select>
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Save Appointment</button>
-                <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Update Status</button>
+                <button type="button" class="btn" onclick="closeEditModal()">Cancel</button>
             </div>
         </form>
     </div>
@@ -408,7 +462,7 @@ $conn->close();
             document.getElementById('appointmentId').value = appointmentId;
 
             // Fetch and populate appointment data
-            fetch(`appointment_actions.php?action=get&id=${appointmentId}`)
+            fetch(`../actions/appointment_actions.php?action=get&id=${appointmentId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
@@ -443,7 +497,7 @@ $conn->close();
 
     // View appointment details
     function viewAppointment(appointmentId) {
-        fetch(`appointment_actions.php?action=get&id=${appointmentId}`)
+        fetch(`../actions/appointment_actions.php?action=get&id=${appointmentId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -481,7 +535,7 @@ $conn->close();
             formData.append('action', 'delete');
             formData.append('appointment_id', appointmentId);
 
-            fetch('appointment_actions.php', {
+            fetch('../actions/appointment_actions.php', {
                 method: 'POST',
                 body: formData
             })
@@ -503,13 +557,58 @@ $conn->close();
         }
     }
 
+    function openEditModal(appointmentId) {
+        const modal = document.getElementById('editAppointmentModal');
+        const appointmentIdInput = document.getElementById('editAppointmentId');
+        const statusSelect = document.getElementById('editAppointmentStatus');
+
+        // Find the current status of the appointment row
+        const row = document.querySelector(`tr[data-appointment-id="${appointmentId}"]`);
+        const currentStatus = row.cells[2].textContent.trim();
+
+        modal.style.display = 'flex';
+        appointmentIdInput.value = appointmentId;
+        statusSelect.value = currentStatus;
+    }
+
+    function closeEditModal() {
+        const modal = document.getElementById('editAppointmentModal');
+        modal.style.display = 'none';
+    }
+
+    // Add event listener for edit form submission
+    document.getElementById('editAppointmentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        fetch('../actions/appointment_actions.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    closeEditModal();
+                    window.location.reload();
+                } else {
+                    alert(data.message || 'Error updating appointment status');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error updating appointment status');
+            });
+    });
+
     // Handle form submission
     document.getElementById('appointmentForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
         const formData = new FormData(this);
 
-        fetch('actions/appointment_actions.php', {
+        fetch('../actions/appointment_actions.php', {
             method: 'POST',
             body: formData
         })
@@ -675,6 +774,19 @@ $conn->close();
             altInput: true
         });
     });
+</script>
+<script type="text/javascript">
+    (function() {
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+
+        window.onpageshow = function(event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        };
+    })();
 </script>
 </body>
 </html>
