@@ -396,7 +396,7 @@ if ($result->num_rows > 0) {
 </div>
 
 <script>
-    // Function to handle API calls
+    //Function to handle API calls
     async function makeRequest(action, data) {
         try {
             const formData = new FormData();
