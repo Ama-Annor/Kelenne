@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } else if ($user_type === "admin") {
                     header("Location: ../view/revenue-analytics.php");
                 } else if ($user_type === "employee") {
-                    header("Location: ../view/admin/employeedashboard.php");
+                    header("Location: ../view/employee.php");
                 }
                 exit;
             } else {

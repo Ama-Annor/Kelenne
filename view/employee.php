@@ -7,7 +7,7 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-if (!isset($_SESSION['role']) || !isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
+if (!isset($_SESSION['role']) || !isset($_SESSION['user_id']) || ($_SESSION['role'] != 'admin' && $_SESSION['role'] != 'employee')){
     header("Location: login.html");
     exit();
 }
@@ -25,47 +25,83 @@ if (isset($_SESSION['response'])) {
     unset($_SESSION['response']);
 }
 
-// Fetch employees
-$sql = "SELECT employees.employee_id, users.fname, users.lname, users.email, users.phone, employees.role
-        FROM employees
-        INNER JOIN users ON employees.user_id = users.user_id";
-$result = $conn->query($sql);
-
 $employees = array();
+$shifts = array();
 
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        // Format employee ID
-        $emp_id = $row['employee_id'];
-        if ($emp_id < 10) {
-            $row['formatted_emp_id'] = "EMP00" . $emp_id;
-        } elseif ($emp_id < 100) {
-            $row['formatted_emp_id'] = "EMP0" . $emp_id;
-        } else {
-            $row['formatted_emp_id'] = "EMP" . $emp_id;
+if ($_SESSION['role'] == 'admin') {
+    // Fetch all employees for admin
+    $stmt = $conn->prepare("SELECT employees.employee_id, users.fname, users.lname, users.email, users.phone, employees.role
+        FROM employees
+        INNER JOIN users ON employees.user_id = users.user_id");
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            // Format employee ID
+            $emp_id = $row['employee_id'];
+            $row['formatted_emp_id'] = sprintf("EMP%03d", $emp_id);
+
+            // Set next pay date (last day of current month)
+            $row['next_pay_date'] = date('Y-m-t');
+
+            $employees[] = $row;
         }
-
-        // Set next pay date (last day of current month)
-        $row['next_pay_date'] = date('Y-m-t');
-
-        $employees[] = $row;
     }
-}
 
-// Fetch current employee shifts
-$shift_sql = "SELECT es.*, u.fname, u.lname, u.email, u.phone
+    // Fetch all shifts for admin
+    $shift_stmt = $conn->prepare("SELECT es.*, u.fname, u.lname, u.email, u.phone
               FROM employee_shifts es
               INNER JOIN employees e ON es.employee_id = e.employee_id
               INNER JOIN users u ON e.user_id = u.user_id
-              ORDER BY es.start_date ASC";
-$shift_result = $conn->query($shift_sql);
-$shifts = array();
+              ORDER BY es.start_date ASC");
+    $shift_stmt->execute();
+    $shift_result = $shift_stmt->get_result();
 
-if ($shift_result->num_rows > 0) {
-    while ($row = $shift_result->fetch_assoc()) {
-        $shifts[] = $row;
+    if ($shift_result->num_rows > 0) {
+        $shifts = $shift_result->fetch_all(MYSQLI_ASSOC);
     }
 }
+else if ($_SESSION['role'] == 'employee') {
+    // Fetch employee's own information
+    $stmt = $conn->prepare("SELECT employees.employee_id, users.fname, users.lname, users.email, users.phone, employees.role
+        FROM employees
+        INNER JOIN users ON employees.user_id = users.user_id
+        WHERE users.user_id = ?");
+    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            // Format employee ID
+            $emp_id = $row['employee_id'];
+            $row['formatted_emp_id'] = sprintf("EMP%03d", $emp_id);
+
+            // Set next pay date (last day of current month)
+            $row['next_pay_date'] = date('Y-m-t');
+
+            $employees[] = $row;
+        }
+    }
+
+    // Fetch employee's own shifts
+    $shift_stmt = $conn->prepare("SELECT es.*, u.fname, u.lname, u.email, u.phone
+              FROM employee_shifts es
+              INNER JOIN employees e ON es.employee_id = e.employee_id
+              INNER JOIN users u ON e.user_id = u.user_id
+              WHERE u.user_id = ?
+              ORDER BY es.start_date ASC");
+    $shift_stmt->bind_param("i", $_SESSION['user_id']);
+    $shift_stmt->execute();
+    $shift_result = $shift_stmt->get_result();
+
+    if ($shift_result->num_rows > 0) {
+        $shifts = $shift_result->fetch_all(MYSQLI_ASSOC);
+    }
+}
+
+// Close the database connection
 $conn->close();
 ?>
 
@@ -371,14 +407,24 @@ $conn->close();
             <span>KELENNE</span>
         </div>
         <nav>
-            <a href="appointments.php" class="menu-item">
-                <i class='bx bx-calendar'></i>
-                <span>Appointments</span>
-            </a>
-            <a href="employee.php" class="menu-item">
-                <i class='bx bx-user'></i>
-                <span>Employees</span>
-            </a>
+            <?php if ($_SESSION['role'] != 'employee'): ?>
+                <a href="appointments.php" class="menu-item">
+                    <i class='bx bx-calendar'></i>
+                    <span>Appointments</span>
+                </a>
+            <?php endif; ?>
+            <?php if ($_SESSION['role'] == 'employee'): ?>
+                <a href="employee.php" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>My Shifts</span>
+                </a>
+            <?php else: ?>
+                <a href="employee.php" class="menu-item">
+                    <i class='bx bx-user'></i>
+                    <span>My Shifts</span>
+                </a>
+            <?php endif; ?>
+            <?php if ($_SESSION['role'] != 'employee'): ?>
             <a href="revenue-analytics.php" class="menu-item">
                 <i class='bx bx-line-chart'></i>
                 <span>Analytics</span>
@@ -403,6 +449,7 @@ $conn->close();
                 <i class='bx bx-gift'></i>
                 <span>Promotions & Rewards</span>
             </a>
+            <?php endif; ?>
             <a href="profile.php" class="menu-item">
                 <i class='bx bx-user'></i>
                 <span>Profile Settings</span>
@@ -464,17 +511,19 @@ $conn->close();
                                 </span>
                             </div>
                         </div>
-                        <div class="employee-actions">
-                            <button class="btn btn-primary btn-edit">
-                                <i class='bx bx-edit'></i> Edit
-                            </button>
-                            <button class="btn btn-primary" onclick="openShiftAssignModal('<?php echo $employee['employee_id']; ?>')">
-                                <i class='bx bx-time'></i> Assign Shift
-                            </button>
-                            <button class="btn btn-delete" data-emp-id="<?php echo $employee['employee_id']; ?>">
-                                <i class='bx bx-trash'></i> Delete
-                            </button>
-                        </div>
+                        <?php if ($_SESSION['role'] != 'employee'): ?>
+                            <div class="employee-actions">
+                                <button class="btn btn-primary btn-edit">
+                                    <i class='bx bx-edit'></i> Edit
+                                </button>
+                                <button class="btn btn-primary" onclick="openShiftAssignModal('<?php echo $employee['employee_id']; ?>')">
+                                    <i class='bx bx-time'></i> Assign Shift
+                                </button>
+                                <button class="btn btn-delete" data-emp-id="<?php echo $employee['employee_id']; ?>">
+                                    <i class='bx bx-trash'></i> Delete
+                                </button>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -491,7 +540,9 @@ $conn->close();
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Shift Type</th>
-                    <th>Actions</th>
+                    <?php if ($_SESSION['role'] != 'employee'): ?>
+                        <th>Actions</th>
+                    <?php endif; ?>
                 </tr>
                 </thead>
                 <tbody>
@@ -503,10 +554,12 @@ $conn->close();
                         <td><?php echo date('Y-m-d', strtotime($shift['start_date'])); ?></td>
                         <td><?php echo date('Y-m-d', strtotime($shift['end_date'])); ?></td>
                         <td><?php echo htmlspecialchars($shift['shift_type']); ?></td>
-                        <td>
-                            <button class="btn btn-primary btn-edit">Edit</button>
-                            <button class="btn btn-delete">Delete</button>
-                        </td>
+                        <?php if ($_SESSION['role'] != 'employee'): ?>
+                            <td>
+                                <button class="btn btn-primary btn-edit">Edit</button>
+                                <button class="btn btn-delete">Delete</button>
+                            </td>
+                        <?php endif; ?>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

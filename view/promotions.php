@@ -7,7 +7,7 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-if (!isset($_SESSION['role']) || !isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['role']) || !isset($_SESSION['user_id']) || $_SESSION['role'] == 'employee') {
     header("Location: login.html");
     exit();
 }
