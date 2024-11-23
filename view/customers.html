@@ -115,7 +115,6 @@
                         </tr>
                     </thead>
                     <tbody id="customerTableBody">
-                        <!-- Sample row -->
                         <tr>
                             <td>Austine Iheji</td>
                             <td>+234 123 456 7890</td>
@@ -202,13 +201,13 @@
         </div>
     </div>
 
-    <!-- View Customer Details Modal -->
+    <!--View Customer Details Modal -->
     <div id="viewCustomerModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeViewModal()">&times;</span>
             <h2>Customer Details</h2>
             <div id="customerDetails">
-                <!-- Will be populated by JavaScript -->
+
             </div>
         </div>
     </div>
@@ -234,8 +233,6 @@
             const viewModal = document.getElementById('viewCustomerModal');
             const detailsContainer = document.getElementById('customerDetails');
             
-            // In a real application, you would fetch customer details from your backend
-            // This is just a mock example
             const mockCustomerDetails = `
                 <div class="customer-details">
                     <p><strong>Customer ID:</strong> ${id}</p>
