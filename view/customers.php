@@ -389,8 +389,8 @@ $conn->close();
         <span class="close" onclick="closeViewModal()">&times;</span>
         <h2>Customer Details</h2>
         <div id="customerDetails">
-            <!-- Will be populated by JavaScript -->
-        </div>
+
+    </div>
     </div>
 </div>
 
@@ -444,7 +444,6 @@ $conn->close();
         }
     }
 
-    // Optional: Add debouncing to improve performance
     function debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {

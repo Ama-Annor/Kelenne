@@ -192,6 +192,7 @@
             <label for="carYear">Year</label>
             <select id="carYear" name="carYear" required>
               <option value="">Select Year</option>
+
               <!-- Dynamically generate years from 1990 to current year -->
             </select>
             <div class="error-message"></div>
@@ -333,10 +334,9 @@
         const formData = new FormData(form);
         const profileData = Object.fromEntries(formData.entries());
 
-        // Here you would typically send this data to a backend server
         console.log('Profile Data:', profileData);
 
-        // Show a success message (replace with actual notification system)
+        // Show a success message 
         alert('Profile updated successfully!');
       }
     });
