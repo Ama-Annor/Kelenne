@@ -33,6 +33,7 @@
                 <a href="services.html">Services</a>
                 <a href="about.php">About</a>
                 <a href="contact.php">Contact</a>
+                <a href="testimonials.php">Testimonials</a>
                 <a href="locations.html">Locations</a>
                 <a href="login.html">Login</a>
                 <a href="signup.html">Register</a>
@@ -46,6 +47,9 @@
     <section class="locations-section">
         <div class="container">
             <h2 class="section-title">OUR LOCATIONS</h2>
+            <div style="text-align: center; margin: 20px 0;">
+                <a href="login.html" class="book-now-btn" style="display: inline-block; padding: 15px 30px; font-size: 1.2em; text-decoration: none;">Book Now</a>
+            </div>
             <br>
             <div class="locations-grid">
                 <div class="location-card">
@@ -55,7 +59,6 @@
                     <div class="location-info">
                         <h3>26 Nkorman ansah estate, GRA Abia state</h3>
                         <p>Open 7 days a week, 9am - 6pm</p>
-                        <button class="book-now-btn">Book Now</button>
                     </div>
                 </div>
                 <div class="location-card">
@@ -65,7 +68,6 @@
                     <div class="location-info">
                         <h3>12 Muri Okunola Street, Ajah Lagos</h3>
                         <p>Open 7 days a week, 9am - 6pm</p>
-                        <button class="book-now-btn">Book Now</button>
                     </div>
                 </div>
                 <div class="location-card">
@@ -75,7 +77,6 @@
                     <div class="location-info">
                         <h3>156 Ojo Alaba, Ibadan Oyo state</h3>
                         <p>Open 7 days a week, 9am - 6pm</p>
-                        <button class="book-now-btn">Book Now</button>
                     </div>
                 </div>
                 <div class="location-card">
@@ -85,7 +86,6 @@
                     <div class="location-info">
                         <h3>11b Toyin Street, Ikeja Lagos</h3>
                         <p>Open 7 days a week, 9am - 6pm</p>
-                        <button class="book-now-btn">Book Now</button>
                     </div>
                 </div>
                 <div class="location-card">
@@ -95,7 +95,6 @@
                     <div class="location-info">
                         <h3>45 Balarabe Musa Crescent, Victoria Island Lagos</h3>
                         <p>Open 7 days a week, 9am - 6pm</p>
-                        <button class="book-now-btn">Book Now</button>
                     </div>
                 </div>
                 <div class="location-card">
@@ -105,7 +104,6 @@
                     <div class="location-info">
                         <h3>17 Allen Avenue, Ikeja Lagos</h3>
                         <p>Open 7 days a week, 9am - 6pm</p>
-                        <button class="book-now-btn">Book Now</button>
                     </div>
                 </div>
             </div>
@@ -152,76 +150,5 @@
             </div>
         </div>
     </footer>
-
-    <!-- Book Now Modal -->
-    <div class="modal" id="book-now-modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Book Your Car Wash</h2>
-            <form action="#" class="contact-form">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
-                </div>
-                <div class="form-group">
-                    <label for="location">Location</label>
-                    <select id="location" name="location" required>
-                        <option value="">Select a location</option>
-                        <option value="location1">26 Nkorman ansah estate, GRA Abia state</option>
-                        <option value="location2">12 Muri Okunola Street, Ajah Lagos</option>
-                        <option value="location3">156 Ojo Alaba, Ibadan Oyo state</option>
-                        <option value="location4">11b Toyin Street, Ikeja Lagos</option>
-                        <option value="location5">45 Balarabe Musa Crescent, Victoria Island Lagos</option>
-                        <option value="location6">17 Allen Avenue, Ikeja Lagos</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="date">Date</label>
-                    <input type="date" id="date" name="date" required>
-                </div>
-                <div class="form-group">
-                    <label for="time">Time</label>
-                    <input type="time" id="time" name="time" required>
-                </div>
-                <button type="submit" class="submit-btn">Book Now</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        //Open the modal when the "Book Now" button is clicked
-        const bookNowBtns = document.querySelectorAll('.book-now-btn');
-        const modal = document.getElementById('book-now-modal');
-        const closeBtn = document.querySelector('.close-button');
-        const header = document.querySelector('.header');
-
-        bookNowBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                modal.style.display = 'block';
-                header.style.position = 'static';
-            });
-        });
-
-
-        //Close the modal when the close button is clicked or when clicking outside the modal
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-            header.style.position = 'sticky';
-        });
-
-        window.addEventListener('click', (event) => {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        });
-    </script>
 </body>
 </html>

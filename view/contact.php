@@ -32,13 +32,14 @@
     <div class="nav-container">
         <div class="logo">KELENNE<span> CAR WASH</span></div>
         <nav>
-            <a href="../index.html">Home</a>
-            <a href="services.html">Services</a>
-            <a href="about.php">About</a>
-            <a href="contact.php">Contact</a>
-            <a href="locations.html">Locations</a>
-            <a href="login.html">Login</a>
-            <a href="signup.html">Register</a>
+        <a href="../index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="about.php">About</a>
+                <a href="contact.php">Contact</a>
+                <a href="testimonials.php">Testimonials</a>
+                <a href="locations.html">Locations</a>
+                <a href="login.html">Login</a>
+                <a href="signup.html">Register</a>
         </nav>
     </div>
 </header>
