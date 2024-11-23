@@ -109,7 +109,6 @@ $conn->close();
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Reuse your existing dashboard layout styles */
         .dashboard-container {
             display: flex;
             min-height: 100vh;
@@ -469,7 +468,7 @@ $conn->close();
                         const appointment = data.appointment;
                         document.getElementById('customerEmail').value = appointment.email;
                         document.getElementById('serviceId').value = appointment.service_id;
-                        document.getElementById('appointmentDate').value = appointment.appointment_date.slice(0, 16); // Format for datetime-local input
+                        document.getElementById('appointmentDate').value = appointment.appointment_date.slice(0, 16); 
                         document.getElementById('appointmentStatus').value = appointment.status;
 
                         // Make email field readonly in edit mode
