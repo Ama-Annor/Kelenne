@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Redirect based on user role
                 if ($user_type === "customer") {
-                    header("Location: ../view/revenue-analytics.php");
+                    header("Location: ../view/appointments.php");
                 } else if ($user_type === "admin") {
                     header("Location: ../view/revenue-analytics.php");
                 } else if ($user_type === "employee") {

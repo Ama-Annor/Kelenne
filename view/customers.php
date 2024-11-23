@@ -7,6 +7,16 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+if (!isset($_SESSION['role']) || !isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
+    header("Location: login.html");
+    exit();
+}
+
+// Prevent caching
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
 $response = ["success" => false, "message" => ""];
 
 // Total Customers
@@ -621,5 +631,18 @@ $conn->close();
             }
         }
     </script>
+<script type="text/javascript">
+    (function() {
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+
+        window.onpageshow = function(event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        };
+    })();
+</script>
 </body>
 </html>
