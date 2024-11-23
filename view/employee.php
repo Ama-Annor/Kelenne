@@ -117,7 +117,7 @@ $conn->close();
     <link rel="stylesheet" href="../assets/css/employee.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
-        /* Include your existing CSS variables and base styles */
+        
         :root {
             --primary-blue: #1e40af;
             --secondary-blue: #3b82f6;
@@ -133,7 +133,6 @@ $conn->close();
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Reuse your existing dashboard layout styles */
         .dashboard-container {
             display: flex;
             min-height: 100vh;
