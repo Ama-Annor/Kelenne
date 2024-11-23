@@ -335,7 +335,7 @@ $analyticsData = getAnalyticsData($currentDay);
 
     function logoutUser() {
         // Clear sessions (usually handled on server side)
-        fetch('../../actions/logout.php', {
+        fetch('../actions/logout.php', {
             method: 'POST'
         }).then(response => {
             if (response.ok) {

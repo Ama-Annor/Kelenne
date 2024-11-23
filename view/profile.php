@@ -313,7 +313,7 @@ $conn->close();
 <script>
     function logoutUser() {
         // Clear sessions (usually handled on server side)
-        fetch('../../actions/logout.php', {
+        fetch('../actions/logout.php', {
             method: 'POST'
         }).then(response => {
             if (response.ok) {
@@ -322,6 +322,7 @@ $conn->close();
             }
         });
     }
+
     // Reuse the JavaScript validation from the original HTML file
     document.addEventListener('DOMContentLoaded', function() {
         // Get form and all input elements
