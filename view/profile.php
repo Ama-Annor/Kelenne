@@ -309,7 +309,7 @@ $conn->close();
         const inputs = form.querySelectorAll('input, select');
         const submitButton = form.querySelector('.submit-btn');
 
-        // Validation rules and functions (same as in the original file)
+        // Validation rules and functions
         const validationRules = {
             firstName: {
                 validate: (value) => value.length >= 2 && value.length <= 50,
