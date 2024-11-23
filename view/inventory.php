@@ -222,7 +222,7 @@ $inventory = getInventoryItems($conn);
             margin-bottom: 15px;
         }
 
-        /* Make inputs and textareas take full width */
+        /* Make inputs and text areas take full width */
         .form-group input,
         .form-group select,
         .form-group textarea {
