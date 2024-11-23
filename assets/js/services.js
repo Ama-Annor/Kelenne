@@ -186,7 +186,7 @@ function searchServices() {
 
     Array.from(rows).forEach(row => {
         const text = Array.from(row.cells)
-            .slice(0, -1) // Exclude the actions column
+            .slice(0, -1) 
             .map(cell => cell.textContent.toLowerCase())
             .join(' ');
 

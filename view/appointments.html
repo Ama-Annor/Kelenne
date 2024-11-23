@@ -157,12 +157,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-        // Initialize date picker
+        //Initialize date picker
         flatpickr("#dateFilter", {
             dateFormat: "Y-m-d",
         });
 
-        // Modal functions
+        //Modal functions
         function openModal(type) {
             document.getElementById('appointmentModal').style.display = 'flex';
         }
@@ -171,7 +171,7 @@
             document.getElementById('appointmentModal').style.display = 'none';
         }
 
-        // Close modal when clicking outside
+        //Close modal when clicking outside
         window.onclick = function(event) {
             if (event.target.className === 'modal') {
                 closeModal();
