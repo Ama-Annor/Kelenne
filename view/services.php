@@ -347,6 +347,7 @@ $conn->close();
         </nav>
     </div>
     <div class="main-content">
+
         <!-- Service Statistics -->
         <div class="service-stats">
             <div class="stat-card">
@@ -515,7 +516,7 @@ $conn->close();
 <script type="text/javascript">
 
     function logoutUser() {
-        // Clear sessions (usually handled on server side)
+        // Clear sessions 
         fetch('../actions/logout.php', {
             method: 'POST'
         }).then(response => {
