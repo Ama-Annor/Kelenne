@@ -535,7 +535,6 @@ if ($result->num_rows > 0) {
                 const row = document.querySelector(`tr[data-equipment-id="${id}"]`);
                 if (row) row.remove();
 
-                // Optional: Update equipment counts
                 location.reload();
             } catch (error) {
                 console.error('Error deleting equipment:', error);
