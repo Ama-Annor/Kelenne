@@ -266,25 +266,27 @@ $conn->close();
                     </div>
                 </div>
 
-                <h3 style="margin: 20px 0 10px; color: var(--text-dark);">Car Details</h3>
+                <?php if ($_SESSION['role'] != 'employee'): ?>
+                    <h3 style="margin: 20px 0 10px; color: var(--text-dark);">Car Details</h3>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="carMake">Car Make</label>
-                        <input type="text" id="carMake" name="carMake"
-                               value="<?php echo isset($vehicle['make']) ? htmlspecialchars($vehicle['make']) : ''; ?>"
-                               required minlength="2" maxlength="50"
-                               placeholder="e.g., Toyota, Honda, Ford">
-                        <div class="error-message"></div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carMake">Car Make</label>
+                            <input type="text" id="carMake" name="carMake"
+                                   value="<?php echo isset($vehicle['make']) ? htmlspecialchars($vehicle['make']) : ''; ?>"
+                                   required minlength="2" maxlength="50"
+                                   placeholder="e.g., Toyota, Honda, Ford">
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="carModel">Car Model</label>
+                            <input type="text" id="carModel" name="carModel"
+                                   value="<?php echo isset($vehicle['model']) ? htmlspecialchars($vehicle['model']) : ''; ?>"
+                                   required minlength="2" maxlength="50">
+                            <div class="error-message"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="carModel">Car Model</label>
-                        <input type="text" id="carModel" name="carModel"
-                               value="<?php echo isset($vehicle['model']) ? htmlspecialchars($vehicle['model']) : ''; ?>"
-                               required minlength="2" maxlength="50">
-                        <div class="error-message"></div>
-                    </div>
-                </div>
+                <?php endif; ?>
 
                 <div class="form-row">
                     <div class="form-group">

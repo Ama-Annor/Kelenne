@@ -424,7 +424,7 @@ $conn->close();
             <?php else: ?>
                 <a href="employee.php" class="menu-item">
                     <i class='bx bx-user'></i>
-                    <span>My Shifts</span>
+                    <span>Employees</span>
                 </a>
             <?php endif; ?>
             <?php if ($_SESSION['role'] != 'employee'): ?>
