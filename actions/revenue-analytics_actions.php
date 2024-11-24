@@ -4,8 +4,7 @@ require '../db/database.php';
 function getAnalyticsData($currentDay) {
     global $conn;
 
-    // Previous code remains the same for monthly revenue, total services, etc.
-    $monthlyQuery = "SELECT SUM(price) as monthly_revenue FROM services";
+    $monthlyQuery = "SELECT SUM(price) AS monthly_revenue FROM services";
     $monthlyResult = mysqli_query($conn, $monthlyQuery);
     $monthlyData = mysqli_fetch_assoc($monthlyResult);
     $monthlyRevenue = $monthlyData['monthly_revenue'] ?? 0;

@@ -221,6 +221,10 @@ $analyticsData = getAnalyticsData($currentDay);
             <span>KELENNE</span>
         </div>
         <nav>
+            <a href="admin/dashboard.php" class="menu-item">
+                <i class='bx bx-home'></i>
+                <span>Dashboard</span>
+            </a>
             <a href="appointments.php" class="menu-item">
                 <i class='bx bx-calendar'></i>
                 <span>Appointments</span>

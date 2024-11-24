@@ -305,6 +305,10 @@ $conn->close();
             <span>KELENNE</span>
         </div>
         <nav>
+            <a href="admin/dashboard.php" class="menu-item">
+                <i class='bx bx-home'></i>
+                <span>Dashboard</span>
+            </a>
             <a href="appointments.php" class="menu-item">
                 <i class='bx bx-calendar'></i>
                 <span>Appointments</span>
@@ -449,7 +453,7 @@ $conn->close();
                 <input type="number" id="addServiceDuration" required>
             </div>
             <div class="form-group">
-                <label for="addServicePrice">Price (₦)</label>
+                <label for="addServicePrice">Price ($)</label>
                 <input type="number" id="addServicePrice" step="0.01" required>
             </div>
             <div class="form-group">
@@ -484,7 +488,7 @@ $conn->close();
                 <input type="number" id="editServiceDuration" required>
             </div>
             <div class="form-group">
-                <label for="editServicePrice">Price (₦)</label>
+                <label for="editServicePrice">Price ($)</label>
                 <input type="number" id="editServicePrice" step="0.01" required>
             </div>
             <div class="form-group">

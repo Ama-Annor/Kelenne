@@ -48,7 +48,7 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         // Get total visits and last visit date
         $customer_id = $row['customer_id'];
-        $visit_sql = "SELECT COUNT(*) AS total_visits, MAX(created_at) AS last_visit_date
+        $visit_sql = "SELECT COUNT(*) AS total_visits, MAX(created_at) AS last_visit_date, SUM(price) AS total_spent 
                       FROM services
                       WHERE customer_id = $customer_id";
         $visit_result = $conn->query($visit_sql);
@@ -215,6 +215,10 @@ $conn->close();
             <span>KELENNE</span>
         </div>
         <nav>
+            <a href="admin/dashboard.php" class="menu-item">
+                <i class='bx bx-home'></i>
+                <span>Dashboard</span>
+            </a>
             <a href="appointments.php" class="menu-item">
                 <i class='bx bx-calendar'></i>
                 <span>Appointments</span>

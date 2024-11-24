@@ -78,7 +78,7 @@ async function viewService(id) {
             <p><strong>Name:</strong> ${service.name}</p>
             <p><strong>Description:</strong> ${service.description}</p>
             <p><strong>Duration:</strong> ${service.duration} minutes</p>
-            <p><strong>Price:</strong> ₦${parseFloat(service.price).toFixed(2)}</p>
+            <p><strong>Price:</strong> ${parseFloat(service.price).toFixed(2)}</p>
             <p><strong>Status:</strong> ${service.is_active ? 'Active' : 'Inactive'}</p>
             
             ${service.fname ? `

@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($user_type === "customer") {
                     header("Location: ../view/admin/customerdashboard.php");
                 } else if ($user_type === "admin") {
-                    header("Location: ../view/revenue-analytics.php");
+                    header("Location: ../view/admin/dashboard.php");
                 } else if ($user_type === "employee") {
                     header("Location: ../view/employee.php");
                 }
