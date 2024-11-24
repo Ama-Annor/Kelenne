@@ -216,57 +216,30 @@ if ($result->num_rows > 0) {
 
         <?php
         // Get equipment under maintenance
-        function getMaintenanceEquipment($conn) {
-            $sql = "SELECT equipment_id, name FROM equipment WHERE status = 'Maintenance' ORDER BY RAND() LIMIT 2";
-            $result = $conn->query($sql);
-            return $result->fetch_all(MYSQLI_ASSOC);
-        }
-
-        // Generate random date within this week
-        function getRandomDateThisWeek() {
-            $startOfWeek = strtotime('monday this week');
-            $endOfWeek = strtotime('friday this week');
-            $randomTimestamp = rand($startOfWeek, $endOfWeek);
-            return date('l, jS M', $randomTimestamp);
-        }
-
-        // Array of possible maintenance types for car wash equipment
-        $maintenanceTypes = [
-            'Filter Replacement',
-            'Deep Cleaning',
-            'Parts Lubrication',
-            'Pressure System Check',
-            'Motor Maintenance',
-            'Pump Servicing',
-            'Hose Inspection',
-            'Belt Replacement',
-            'General Tune-up',
-            'Electrical System Check'
-        ];
-
-        // Array of possible maintenance statuses
-        $maintenanceStatuses = [
-            'Pending' => 'status-maintenance',
-            'In Progress' => 'status-repair',
-            'Scheduled' => 'status-maintenance',
-            'Delayed' => 'status-repair'
-        ];
-
-        // Get maintenance equipment
-        $maintenanceEquipment = getMaintenanceEquipment($conn);
-
-        // Generate schedule data
-        $schedules = array_map(function($equipment) use ($maintenanceTypes, $maintenanceStatuses) {
-            return [
-                'name' => $equipment['name'],
-                'date' => getRandomDateThisWeek(),
-                'type' => $maintenanceTypes[array_rand($maintenanceTypes)],
-                'status' => array_rand($maintenanceStatuses),
-                'statusClass' => $maintenanceStatuses[array_rand($maintenanceStatuses)]
-            ];
-        }, $maintenanceEquipment);
+        $sql = "SELECT equipment_id, name, Type, status, next_maintenance_date 
+        FROM equipment 
+        WHERE status = 'Maintenance' 
+        AND DATE(next_maintenance_date) >= CURDATE() 
+        LIMIT 2";
+        $result = $conn->query($sql);
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
 
         $conn->close();
+
+        // Helper function to format the date
+        function formatMaintenanceDate($date) {
+            $maintenance_date = date('Y-m-d', strtotime($date));
+            $today = date('Y-m-d');
+            $tomorrow = date('Y-m-d', strtotime('+1 day'));
+
+            if ($maintenance_date === $today) {
+                return 'Today';
+            } elseif ($maintenance_date === $tomorrow) {
+                return 'Tomorrow';
+            } else {
+                return date('Y-m-d', strtotime($date));
+            }
+        }
         ?>
 
         <!-- Maintenance Schedule Section -->
@@ -275,20 +248,19 @@ if ($result->num_rows > 0) {
                 <h2>This Week's Maintenance Schedule</h2>
             </div>
             <div class="schedule-grid">
-                <?php if (empty($schedules)): ?>
+                <?php if (empty($rows)): ?>
                     <div class="schedule-card">
                         <h3>No Maintenance Scheduled</h3>
                         <p>There are currently no equipment items under maintenance.</p>
                     </div>
                 <?php else: ?>
-                    <?php foreach ($schedules as $schedule): ?>
+                    <?php foreach ($rows as $item): ?>
                         <div class="schedule-card">
-                            <h3><?php echo htmlspecialchars($schedule['name']); ?></h3>
-                            <p>Scheduled: <?php echo htmlspecialchars($schedule['date']); ?></p>
-                            <p>Type: <?php echo htmlspecialchars($schedule['type']); ?></p>
-                            <span class="status-badge <?php echo htmlspecialchars($schedule['statusClass']); ?>">
-                    <?php echo htmlspecialchars($schedule['status']); ?>
-                </span>
+                            <h3><?php echo htmlspecialchars($item['name']); ?></h3>
+                            <p>Scheduled: <?php echo htmlspecialchars(formatMaintenanceDate($item['next_maintenance_date'])); ?></p>
+                            <p>Type: <?php echo htmlspecialchars($item['Type']); ?></p>
+                <?php echo htmlspecialchars($item['status']); ?>
+            </span>
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
