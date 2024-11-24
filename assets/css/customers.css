@@ -1,4 +1,3 @@
-/* Using same CSS as inventory page, but adding customer-specific styles */
 :root {
     --primary-blue: #1e40af;
     --secondary-blue: #3b82f6;
@@ -13,9 +12,6 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-
-/* Reusing all the base styles from inventory page... */
-/* Adding customer-specific styles */
 
 .customer-stats {
     display: grid;

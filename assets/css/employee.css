@@ -1,4 +1,3 @@
-/* Include your existing CSS variables and base styles */
 :root {
     --primary-blue: #1e40af;
     --secondary-blue: #3b82f6;
@@ -14,7 +13,6 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* Reuse your existing dashboard layout styles */
 .dashboard-container {
     display: flex;
     min-height: 100vh;

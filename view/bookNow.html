@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../assets/css/index.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
+    <!-- Form-specific styles -->
     <style>
         .form-section {
             background: var(--white);
@@ -55,7 +56,7 @@
 </head>
 <body>
     <div class="dashboard-container">
-        <!-- Sidebar -->
+        <!-- Sidebar Navigation -->
         <div class="sidebar" id="sidebar">
             <div class="logo">
                 <i class='bx bxs-car-wash'></i>
@@ -113,10 +114,11 @@
             </nav>
         </div>
 
-        <!-- Main Content -->
+        <!-- Main Content Area -->
         <div class="main-content">
             <div class="form-section">
                 <h2 style="text-align: center; margin-bottom: 20px; color: var(--primary-blue);">Book a Car Wash Service</h2>
+                <!-- Booking Form -->
                 <form id="bookingForm" action="#" class="contact-form">
                     <div class="form-group">
                         <label for="name">Full Name</label>
@@ -182,10 +184,12 @@
         </div>
     </div>
 
+    <!-- Form Validation and Submission Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('bookingForm');
 
+            // Validation helper function
             function validateField(field, errorElement, validationFn, errorMessage) {
                 const value = field.value.trim();
                 if (!validationFn(value)) {
@@ -199,6 +203,7 @@
                 }
             }
 
+            // Field validation rules
             function validateName(name) {
                 return name.length >= 2 && /^[a-zA-Z\s]+$/.test(name);
             }
@@ -220,12 +225,12 @@
                 return /^[A-Z0-9\s-]+$/.test(plate);
             }
 
+            // Form submission handler
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
 
                 let isValid = true;
 
-                // Validate each field
                 isValid &= validateField(
                     document.getElementById('name'), 
                     document.getElementById('nameError'), 
@@ -302,6 +307,7 @@
                 }
             });
 
+            // Real-time validation on blur
             const inputs = form.querySelectorAll('input, select');
             inputs.forEach(input => {
                 input.addEventListener('blur', function() {
