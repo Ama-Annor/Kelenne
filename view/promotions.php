@@ -246,6 +246,10 @@ $conn->close();
         </div>
         <nav>
             <?php if ($_SESSION['role'] == 'customer'): ?>
+                <a href="admin/customerdashboard.php" class="menu-item">
+                    <i class='bx bx-home'></i>
+                    <span>Dashboard</span>
+                </a>
                 <a href="bookNow.php" class="menu-item">
                     <i class='bx bx-calendar'></i>
                     <span>Book a Service</span>

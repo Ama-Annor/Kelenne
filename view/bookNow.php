@@ -116,6 +116,10 @@ $conn->close();
             <i class='bx bxs-car-wash'></i>
             <span>KELENNE</span>
         </div>
+        <a href="admin/customerdashboard.php" class="menu-item">
+            <i class='bx bx-home'></i>
+            <span>Dashboard</span>
+        </a>
         <a href="#" class="menu-item">
             <i class='bx bx-calendar'></i>
             <span>Book a Service</span>
