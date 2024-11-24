@@ -24,7 +24,7 @@ $result = $conn->query("SELECT COUNT(*) AS total_services FROM services WHERE DA
 $cars_washed_today = $result->fetch_assoc()['total_services'];
 
 // Total Revenue Today
-$result = $conn->query("SELECT SUM(price) AS today_revenue FROM services");
+$result = $conn->query("SELECT SUM(price) AS today_revenue FROM services WHERE DATE(created_at) = CURDATE()");
 $today_revenue = $result->fetch_assoc()['today_revenue'] ?? 0;
 
 // Total Appointments for Today
