@@ -9,7 +9,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-<!-- Header -->
+<!-- Navigation Header -->
 <header class="header">
     <div class="nav-container">
         <div class="logo">KELENNE<span> CAR WASH</span></div>
@@ -25,8 +25,11 @@
     </div>
 </header>
 <br>  <br>  <br> <br>
+
+<!-- Main Sign Up Container -->
 <div class="container">
     <div class="signup-container">
+        <!-- Benefits Section -->
         <div class="signup-image">
             <div class="image-overlay">
                 <h2>Join Our Premium Service</h2>
@@ -38,6 +41,8 @@
                 </ul>
             </div>
         </div>
+
+        <!-- Registration Form -->
         <div class="signup-form">
             <h2>Create Account</h2>
             <form id="signupForm" action="../actions/signup.php" onsubmit="return validateForm(event)">
@@ -61,6 +66,7 @@
                     <label>Phone Number</label>
                     <span class="error-message" id="phoneError"></span>
                 </div>
+                <!-- Vehicle Information Fields -->
                 <div class="input-group">
                     <input type="text" id="carMake">
                     <label>Car Make</label>
@@ -81,6 +87,7 @@
                     <label>License Plate</label>
                     <span class="error-message" id="licensePlateError"></span>
                 </div>
+                <!-- Security Fields -->
                 <div class="input-group">
                     <input type="password" id="password" required>
                     <label>Password</label>
@@ -106,18 +113,19 @@
 </div>
 <br>  <br>  <br> <br>
 
+<!-- Form Validation and Submission Script -->
 <script>
     function validateForm(event) {
         event.preventDefault();
 
-        // Reset all error messages
+        // Reset error messages
         document.querySelectorAll('.error-message').forEach(error => {
             error.style.display = 'none';
         });
 
         let isValid = true;
 
-        // First Name validation
+        // Personal Information Validation
         const fname = document.getElementById('fname');
         if (!/^[a-zA-Z-' ]{2,30}$/.test(fname.value.trim())) {
             document.getElementById('fnameError').textContent = 'Please enter a valid first name';
@@ -125,7 +133,6 @@
             isValid = false;
         }
 
-        // Last Name validation
         const lname = document.getElementById('lname');
         if (!/^[a-zA-Z-' ]{2,30}$/.test(lname.value.trim())) {
             document.getElementById('lnameError').textContent = 'Please enter a valid last name';
@@ -133,7 +140,6 @@
             isValid = false;
         }
 
-        // Email validation
         const email = document.getElementById('email');
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
             document.getElementById('emailError').textContent = 'Please enter a valid email address';
@@ -141,7 +147,6 @@
             isValid = false;
         }
 
-        // Phone validation
         const phone = document.getElementById('phone');
         if (!/^\d{10}$/.test(phone.value.replace(/\D/g, ''))) {
             document.getElementById('phoneError').textContent = 'Please enter a valid 10-digit phone number';
@@ -149,7 +154,7 @@
             isValid = false;
         }
 
-        // Password validation
+        // Password Validation
         const password = document.getElementById('password');
         const confirmPassword = document.getElementById('confirmPassword');
 
@@ -165,7 +170,6 @@
             isValid = false;
         }
 
-        // Secret Key validation
         const secretKey = document.getElementById('secretKey');
         
         
@@ -175,8 +179,8 @@
             isValid = false;
         }
 
+        // Form Submission Handler
         if (isValid) {
-            // Explicitly create form data
             const formData = new URLSearchParams();
             formData.append('fname', fname.value.trim());
             formData.append('lname', lname.value.trim());
@@ -186,7 +190,7 @@
             formData.append('confirmPassword', confirmPassword.value);
             formData.append('secretKey', secretKey.value);
 
-            // Optional car details
+            // Add vehicle details to form data
             formData.append('carMake', document.getElementById('carMake').value.trim());
             formData.append('carModel', document.getElementById('carModel').value.trim());
             formData.append('carYear', document.getElementById('carYear').value);

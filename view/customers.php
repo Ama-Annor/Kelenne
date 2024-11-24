@@ -635,7 +635,6 @@ $conn->close();
 
         async function updateCustomerCounts() {
             // This function would make an AJAX call to get updated counts
-            // For now, we'll just reload the page
             location.reload();
         }
 

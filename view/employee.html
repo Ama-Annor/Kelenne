@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="dashboard-container">
-        <!-- Sidebar -->
+        <!-- Sidebar Navigation Panel -->
         <div class="sidebar" id="sidebar">
             <div class="logo">
                 <i class='bx bxs-car-wash'></i>
@@ -74,7 +74,10 @@
                 </a>
             </nav>
         </div>
+
+    <!-- Main Content Area -->
     <div class="main-content">
+        <!-- Employee Header Section -->
         <div class="employees-header">
             <h2>Employee Management</h2>
             <button class="btn btn-primary" onclick="openModal('add')">
@@ -82,6 +85,7 @@
             </button>
         </div>
 
+        <!-- Employee Card Display -->
         <div class="employee-cards">
             <div class="employee-card">
                 <div class="employee-header">
@@ -117,9 +121,9 @@
                     </button>
                 </div>
             </div>
-            <!-- More employee cards can be added here -->
         </div>
 
+        <!-- Weekly Schedule Section -->
         <div class="shift-schedule">
             <h3>Weekly Shift Schedule</h3>
             <div class="schedule-grid">
@@ -130,10 +134,10 @@
                         <p>Evening: Sammie, Mc The RAT</p>
                     </div>
                 </div>
-                <!-- Repeat for other days -->
             </div>
         </div>
 
+        <!-- Attendance Tracking Table -->
         <div class="attendance-section" style="margin-top: 20px; background: white; padding: 20px; border-radius: 10px;">
             <h3>Attendance Log</h3>
             <table class="attendance-table">
@@ -156,14 +160,14 @@
                         <td>8 hrs</td>
                         <td>Present</td>
                     </tr>
-                    <!-- More attendance rows -->
+
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<!-- Add/Edit Employee Modal -->
+<!-- Employee Add/Edit Modal -->
 <div id="employeeModal" class="modal">
     <div class="modal-content">
         <h3>Add New Employee</h3>
@@ -200,7 +204,7 @@
     </div>
 </div>
 
-<!-- Shift Assignment Modal -->
+<!-- Shift Assignment Modal Window -->
 <div id="shiftModal" class="modal">
     <div class="modal-content">
         <h3>Assign Shift</h3>
@@ -232,8 +236,9 @@
     </div>
 </div>
 
+<!-- Modal Control Scripts -->
 <script>
-    // Modal functions
+    // Modal control functions
     function openModal(type) {
         if (type === 'add' || type === 'edit') {
             document.getElementById('employeeModal').style.display = 'flex';
@@ -247,23 +252,21 @@
         document.getElementById('shiftModal').style.display = 'none';
     }
 
-    // Close modal when clicking outside
+    // Close modal on outside click
     window.onclick = function(event) {
         if (event.target.className === 'modal') {
             closeModal();
         }
     }
 
-    // Form submission handler
+    // Form submission handlers
     document.getElementById('employeeForm').onsubmit = function(e) {
         e.preventDefault();
-        // Add your form handling logic here
         closeModal();
     }
 
     document.getElementById('shiftForm').onsubmit = function(e) {
         e.preventDefault();
-        // Add your shift assignment logic here
         closeModal();
     }
 </script>

@@ -41,7 +41,6 @@ $inventory = getInventoryItems($conn);
     <link rel="stylesheet" href="../assets/css/index.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
     <style>
-        /* Using your existing CSS variables and base styles */
         :root {
             --primary-blue: #1e40af;
             --secondary-blue: #3b82f6;
@@ -62,7 +61,6 @@ $inventory = getInventoryItems($conn);
             min-height: 100vh;
         }
 
-        /* Reusing your sidebar styles */
         .sidebar {
             width: 250px;
             background: var(--primary-blue);
