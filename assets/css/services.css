@@ -109,18 +109,6 @@ nav a:hover::after {
     margin-bottom: 1.5rem;
 }
 
-.read-more {
-    display: inline-block;
-    color: var(--secondary-blue);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
-}
-
-.read-more:hover {
-    color: var(--primary-blue);
-}
-
 /* Services Section */
 .services {
     padding: 80px 0;
