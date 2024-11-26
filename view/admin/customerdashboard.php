@@ -184,8 +184,20 @@ $history_result = $history_stmt->get_result();
                     <tr>
                         <td><?php echo htmlspecialchars($row['name']); ?></td>
                         <td><?php echo htmlspecialchars($row['description']); ?></td>
-                        <td><?php echo htmlspecialchars($row['duration'] ?? 'Not Set'); ?> mins</td>
-                        <td>₦<?php echo number_format($row['price'] ?? 'Not Set'); ?></td>
+                        <td>
+                            <?php
+                            echo is_numeric($row['duration']) ?
+                                htmlspecialchars($row['duration']) . ' mins' :
+                                'NA';
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            echo is_numeric($row['price']) ?
+                                '$' . number_format($row['price']) :
+                                'NA';
+                            ?>
+                        </td>
                         <td><?php echo $row['is_active'] ? 'Active' : 'Inactive'; ?></td>
                     </tr>
                 <?php endwhile; ?>
