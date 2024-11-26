@@ -71,7 +71,6 @@ git clone https://github.com/yourusername/kelenne-carwash.git
 
 4. Install dependencies:
    - Ensure all CSS and JavaScript dependencies are properly linked
-   - Update API keys and configuration settings as needed
 
 ## Project Structure
 
