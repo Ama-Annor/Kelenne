@@ -35,6 +35,11 @@ Kelenne Car Wash is a professional car washing service system that provides vari
   - Appointment history
   - Service status tracking
   - Profile management
+  
+- **Employee Dashboard**
+  - View shifts
+  - Edit profile
+  - Book appointments
 
 ## Tech Stack
 
@@ -43,7 +48,6 @@ Kelenne Car Wash is a professional car washing service system that provides vari
   - CSS3
   - JavaScript
   - Boxicons for icons
-  - Flatpickr for date picking
 
 - **Backend:**
   - PHP
