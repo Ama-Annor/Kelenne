@@ -184,8 +184,8 @@ $history_result = $history_stmt->get_result();
                     <tr>
                         <td><?php echo htmlspecialchars($row['name']); ?></td>
                         <td><?php echo htmlspecialchars($row['description']); ?></td>
-                        <td><?php echo htmlspecialchars($row['duration']); ?> mins</td>
-                        <td>₦<?php echo number_format($row['price']); ?></td>
+                        <td><?php echo htmlspecialchars($row['duration'] ?? 'Not Set'); ?> mins</td>
+                        <td>₦<?php echo number_format($row['price'] ?? 'Not Set'); ?></td>
                         <td><?php echo $row['is_active'] ? 'Active' : 'Inactive'; ?></td>
                     </tr>
                 <?php endwhile; ?>
