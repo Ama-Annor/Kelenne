@@ -664,45 +664,24 @@ $conn->close();
 
     // Enhanced filter function
     function filterAppointments() {
-        const date = document.getElementById('dateFilter').value;
-        const customer = document.getElementById('customerSearch').value.toLowerCase();
-        const service = document.getElementById('serviceFilter').value;
-
-        // Get all rows in the table
+        const dateFilter = document.getElementById('dateFilter').value;
         const rows = document.querySelectorAll('#appointmentsTable tbody tr');
 
         rows.forEach(row => {
-            let showRow = true;
+            const appointmentDateCell = row.querySelector('td:nth-child(<?php echo $_SESSION['role'] == 'admin' ? 2 : 1; ?>)');
+            const appointmentDate = appointmentDateCell.textContent.trim();
+            const formattedRowDate = new Date(appointmentDate).toISOString().split('T')[0];
 
-            // Filter by date
-            if (date) {
-                const rowDate = row.cells[0].textContent.split(' ')[0]; // Get just the date part
-                if (!rowDate.includes(date)) {
-                    showRow = false;
-                }
-            }
+            // Show the row if the date filter is empty or matches the row's date
+            const dateMatch = !dateFilter || formattedRowDate === dateFilter;
 
-            // Filter by customer name or email
-            if (customer) {
-                const customerName = row.cells[1].textContent.toLowerCase();
-                const customerEmail = row.cells[2].textContent.toLowerCase();
-                if (!customerName.includes(customer) && !customerEmail.includes(customer)) {
-                    showRow = false;
-                }
-            }
-
-            // Filter by service
-            if (service) {
-                const rowService = row.cells[3].textContent;
-                if (!rowService.includes(service)) {
-                    showRow = false;
-                }
-            }
-
-            // Show/hide row based on filters
-            row.style.display = showRow ? '' : 'none';
+            // Always show the row if date filter matches
+            row.style.display = dateMatch ? '' : 'none';
         });
     }
+
+    // Add event listener for date filter
+    document.getElementById('dateFilter').addEventListener('change', filterAppointments);
 
 
     // Initialize flatpickr with more specific options
