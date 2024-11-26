@@ -56,9 +56,7 @@ Kelenne Car Wash is a professional car washing service system that provides vari
 ## Installation
 
 1. Clone the repository:
-```bash
 git clone https://github.com/yourusername/kelenne-carwash.git
-```
 
 2. Set up the database:
    - Create a MySQL database
@@ -105,5 +103,8 @@ kelenne/
    - Track inventory and revenue
    - Monitor customer data
 
+3. **Employee Dashboard:**
+   - Access to view their shift and schedule
+   - See their profiles and update or edit it
 
 ---
