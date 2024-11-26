@@ -71,7 +71,7 @@ $history_sql = "SELECT s.service_id, s.name, s.description, s.duration, s.price,
         FROM services s
         INNER JOIN customers c ON s.customer_id = c.customer_id
         WHERE c.user_id = ?
-        LIMIT 5";
+        ORDER BY s.created_at DESC";
 
 $history_stmt = $conn->prepare($history_sql);
 $history_stmt->bind_param("i", $_SESSION['user_id']);
@@ -108,7 +108,7 @@ $history_result = $history_stmt->get_result();
             </a>
             <a href="../appointments.php" class="menu-item">
                 <i class='bx bx-calendar'></i>
-                <span>My Appointments</span>
+                <span>Appointments</span>
             </a>
             <a href="../promotions.php" class="menu-item">
                 <i class='bx bx-gift'></i>
