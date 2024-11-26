@@ -1,3 +1,4 @@
+
 # Kelenne Car Wash Management System
 
 A comprehensive web-based platform for managing Kelenne Car Wash services, appointments, and customer relationships.
@@ -15,24 +16,20 @@ Kelenne Car Wash is a professional car washing service system that provides vari
 
 - **Service Management**
   - Multiple service types (Express Wash, Premium Detailing, Paint Protection)
-  - Service scheduling and availability tracking
   - Pricing management
 
-- **Appointment System**
-  - Real-time booking system
-  - Calendar integration
-  - Appointment status tracking
-  - Email notifications
 
 - **Admin Dashboard**
   - Appointment management
   - Employee scheduling
   - Inventory tracking
+  - Sevices availalilty
   - Revenue analytics
   - Customer database
   - Equipment management
   - Promotions and rewards system
-
+  - Profile management
+    
 - **Customer Features**
   - Service booking
   - Appointment history
@@ -105,12 +102,5 @@ kelenne-carwash/
    - Track inventory and revenue
    - Monitor customer data
 
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 ---
