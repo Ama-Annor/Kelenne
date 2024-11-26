@@ -108,7 +108,7 @@ $history_result = $history_stmt->get_result();
             </a>
             <a href="../appointments.php" class="menu-item">
                 <i class='bx bx-calendar'></i>
-                <span>My Appointments</span>
+                <span>Appointments</span>
             </a>
             <a href="../promotions.php" class="menu-item">
                 <i class='bx bx-gift'></i>
