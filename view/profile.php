@@ -266,7 +266,7 @@ $conn->close();
                     </div>
                 </div>
 
-                <?php if ($_SESSION['role'] != 'employee'): ?>
+                <?php if ($_SESSION['role'] == 'customer'): ?>
                     <h3 style="margin: 20px 0 10px; color: var(--text-dark);">Car Details</h3>
 
                     <div class="form-row">
@@ -286,33 +286,33 @@ $conn->close();
                             <div class="error-message"></div>
                         </div>
                     </div>
-                <?php endif; ?>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="carYear">Year</label>
-                        <select id="carYear" name="carYear" required>
-                            <!-- Dynamically generate years from 1990 to current year -->
-                            <?php
-                            $currentYear = date('Y');
-                            for ($year = $currentYear; $year >= 1990; $year--) {
-                                $selected = (isset($vehicle['year']) && $vehicle['year'] == $year) ? 'selected' : '';
-                                echo "<option value='$year' $selected>$year</option>";
-                            }
-                            ?>
-                        </select>
-                        <div class="error-message"></div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carYear">Year</label>
+                            <select id="carYear" name="carYear" required>
+                                <!-- Dynamically generate years from 1990 to current year -->
+                                <?php
+                                $currentYear = date('Y');
+                                for ($year = $currentYear; $year >= 1990; $year--) {
+                                    $selected = (isset($vehicle['year']) && $vehicle['year'] == $year) ? 'selected' : '';
+                                    echo "<option value='$year' $selected>$year</option>";
+                                }
+                                ?>
+                            </select>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="licensePlate">License Plate Number</label>
+                            <input type="text" id="licensePlate" name="licensePlate"
+                                   value="<?php echo isset($vehicle['license_plate']) ? htmlspecialchars($vehicle['license_plate']) : ''; ?>"
+                                   required minlength="6" maxlength="10"
+                                   pattern="^[A-Za-z0-9\s-]+$"
+                                   placeholder="Enter license plate">
+                            <div class="error-message"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="licensePlate">License Plate Number</label>
-                        <input type="text" id="licensePlate" name="licensePlate"
-                               value="<?php echo isset($vehicle['license_plate']) ? htmlspecialchars($vehicle['license_plate']) : ''; ?>"
-                               required minlength="6" maxlength="10"
-                               pattern="^[A-Za-z0-9\s-]+$"
-                               placeholder="Enter license plate">
-                        <div class="error-message"></div>
-                    </div>
-                </div>
+                <?php endif; ?>
 
                 <button type="submit" class="submit-btn">Update Profile</button>
             </form>

@@ -253,7 +253,7 @@ $conn->close();
                 .then(data => {
                     if (data.success) {
                         alert('Service booked successfully!');
-                        window.location.href = 'appointments.php';
+                        window.location.href = 'admin/customerdashboard.php';
                     } else {
                         alert('Error booking service: ' + data.message);
                     }

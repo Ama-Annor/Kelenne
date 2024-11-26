@@ -219,7 +219,8 @@ if ($result->num_rows > 0) {
         $sql = "SELECT equipment_id, name, Type, status, next_maintenance_date 
         FROM equipment 
         WHERE status = 'Maintenance' 
-        AND DATE(next_maintenance_date) >= CURDATE() 
+        AND DATE(next_maintenance_date) >= CURDATE()
+        ORDER BY next_maintenance_date ASC
         LIMIT 2";
         $result = $conn->query($sql);
         $rows = $result->fetch_all(MYSQLI_ASSOC);
