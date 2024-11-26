@@ -704,51 +704,6 @@ $conn->close();
         });
     }
 
-    // Function to handle form submission
-    function filterAppointments() {
-        const dateFilter = document.getElementById('dateFilter').value;
-        const customer = document.getElementById('customerSearch').value.toLowerCase();
-        const serviceFilter = document.getElementById('serviceFilter').value;
-
-        // Get all rows in the table
-        const rows = document.querySelectorAll('#appointmentsTable tbody tr');
-
-        rows.forEach(row => {
-            let showRow = true;
-
-            // Filter by date
-            if (dateFilter) {
-                const appointmentDateTime = row.cells[0].textContent; // Get full date and time
-                const appointmentDate = new Date(appointmentDateTime).toISOString().split('T')[0]; // Convert to YYYY-MM-DD
-                if (appointmentDate !== dateFilter) {
-                    showRow = false;
-                }
-            }
-
-            // Filter by customer name or email
-            if (customer) {
-                const customerName = row.cells[1].textContent.toLowerCase();
-                const customerEmail = row.cells[2].textContent.toLowerCase();
-                if (!customerName.includes(customer) && !customerEmail.includes(customer)) {
-                    showRow = false;
-                }
-            }
-
-            // Filter by service
-            if (serviceFilter) {
-                const rowService = row.cells[3].textContent.trim(); // Get service name and trim whitespace
-                const selectedServiceElement = document.querySelector(`#serviceFilter option[value="${serviceFilter}"]`);
-                const selectedServiceName = selectedServiceElement ? selectedServiceElement.textContent.trim() : '';
-
-                if (rowService !== selectedServiceName) {
-                    showRow = false;
-                }
-            }
-
-            // Show/hide row based on filters
-            row.style.display = showRow ? '' : 'none';
-        });
-    }
 
     // Initialize flatpickr with more specific options
     document.addEventListener('DOMContentLoaded', function() {
