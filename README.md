@@ -76,7 +76,7 @@ git clone https://github.com/yourusername/kelenne-carwash.git
 ## Project Structure
 
 ```
-kelenne-carwash/
+kelenne/
 ├── assets/
 │   ├── css/
 │   ├── images/
