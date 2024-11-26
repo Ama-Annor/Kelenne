@@ -104,5 +104,8 @@ kelenne/
    - Track inventory and revenue
    - Monitor customer data
 
+3. **Employee Dashboard:**
+   - Access to view their shift and schedule
+   - See their profiles and update or edit it
 
 ---
