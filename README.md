@@ -1,3 +1,4 @@
+
 # Kelenne Car Wash Management System
 
 A comprehensive web-based platform for managing Kelenne Car Wash services, appointments, and customer relationships.
@@ -15,29 +16,30 @@ Kelenne Car Wash is a professional car washing service system that provides vari
 
 - **Service Management**
   - Multiple service types (Express Wash, Premium Detailing, Paint Protection)
-  - Service scheduling and availability tracking
   - Pricing management
 
-- **Appointment System**
-  - Real-time booking system
-  - Calendar integration
-  - Appointment status tracking
-  - Email notifications
 
 - **Admin Dashboard**
   - Appointment management
   - Employee scheduling
   - Inventory tracking
+  - Sevices availalilty
   - Revenue analytics
   - Customer database
   - Equipment management
   - Promotions and rewards system
-
+  - Profile management
+    
 - **Customer Features**
   - Service booking
   - Appointment history
   - Service status tracking
   - Profile management
+  
+- **Employee Dashboard**
+  - View shifts
+  - Edit profile
+  - Book appointments
 
 ## Tech Stack
 
@@ -46,7 +48,6 @@ Kelenne Car Wash is a professional car washing service system that provides vari
   - CSS3
   - JavaScript
   - Boxicons for icons
-  - Flatpickr for date picking
 
 - **Backend:**
   - PHP
@@ -55,9 +56,7 @@ Kelenne Car Wash is a professional car washing service system that provides vari
 ## Installation
 
 1. Clone the repository:
-```bash
 git clone https://github.com/yourusername/kelenne-carwash.git
-```
 
 2. Set up the database:
    - Create a MySQL database
@@ -70,12 +69,11 @@ git clone https://github.com/yourusername/kelenne-carwash.git
 
 4. Install dependencies:
    - Ensure all CSS and JavaScript dependencies are properly linked
-   - Update API keys and configuration settings as needed
 
 ## Project Structure
 
 ```
-kelenne-carwash/
+kelenne/
 ├── assets/
 │   ├── css/
 │   ├── images/
@@ -105,12 +103,8 @@ kelenne-carwash/
    - Track inventory and revenue
    - Monitor customer data
 
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+3. **Employee Dashboard:**
+   - Access to view their shift and schedule
+   - See their profiles and update or edit it
 
 ---
