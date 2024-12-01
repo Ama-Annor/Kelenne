@@ -210,18 +210,28 @@ $conn->close();
                     <tr>
                         <td><?php echo htmlspecialchars($customer['fname'] . ' ' . $customer['lname']); ?></td>
                         <td><?php echo htmlspecialchars($customer['total_visits']); ?></td>
-                        <td>$<?php echo number_format($customer['total_spent']); ?></td>
                         <td><?php
-                            $last_visit = new DateTime($customer['last_visit_date']);
-                            $now = new DateTime();
-                            $diff = $now->diff($last_visit);
-
-                            if ($diff->days == 0) {
-                                echo 'Today';
-                            } elseif ($diff->days == 1) {
-                                echo 'Yesterday';
+                            if (empty($customer['total_spent']) || $customer['total_spent'] === null || $customer['total_spent'] == 0) {
+                                echo '$0';
                             } else {
-                                echo $last_visit->format('M d, Y');
+                                echo '$' . number_format($customer['total_spent'], 2);
+                            }
+                            ?></td>
+                        <td><?php
+                            if (empty($customer['last_visit_date']) || $customer['last_visit_date'] === null) {
+                                echo 'N/A';
+                            } else {
+                                $last_visit = new DateTime($customer['last_visit_date']);
+                                $now = new DateTime();
+                                $diff = $now->diff($last_visit);
+
+                                if ($diff->days == 0) {
+                                    echo 'Today';
+                                } elseif ($diff->days == 1) {
+                                    echo 'Yesterday';
+                                } else {
+                                    echo $last_visit->format('M d, Y');
+                                }
                             }
                             ?></td>
                     </tr>

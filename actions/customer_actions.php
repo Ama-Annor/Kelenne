@@ -184,7 +184,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $conn->begin_transaction();
 
             try {
-                // Get user_id first
+                // First delete appointments (has RESTRICT constraint)
+                $sql_appointments = "DELETE FROM appointments WHERE customer_id = ?";
+                $stmt_appointments = $conn->prepare($sql_appointments);
+                $stmt_appointments->bind_param("i", $customer_id);
+                $stmt_appointments->execute();
+
+                // Delete from customer_profiles
                 $sql = "SELECT user_id FROM customers WHERE customer_id = ?";
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("i", $customer_id);
@@ -192,22 +198,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $result = $stmt->get_result();
                 $user_id = $result->fetch_assoc()['user_id'];
 
-                // Delete from customers table
-                $sql = "DELETE FROM customers WHERE customer_id = ?";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("i", $customer_id);
-                $stmt->execute();
+                $sql_profile = "DELETE FROM customer_profiles WHERE user_id = ?";
+                $stmt_profile = $conn->prepare($sql_profile);
+                $stmt_profile->bind_param("i", $user_id);
+                $stmt_profile->execute();
 
-                // Delete from users table
-                $sql = "DELETE FROM users WHERE user_id = ?";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("i", $user_id);
-                $stmt->execute();
+                // Now delete the customer (vehicles and services will cascade automatically)
+                $sql_customer = "DELETE FROM customers WHERE customer_id = ?";
+                $stmt_customer = $conn->prepare($sql_customer);
+                $stmt_customer->bind_param("i", $customer_id);
+                $stmt_customer->execute();
+
+                // Finally delete from users
+                $sql_user = "DELETE FROM users WHERE user_id = ?";
+                $stmt_user = $conn->prepare($sql_user);
+                $stmt_user->bind_param("i", $user_id);
+                $stmt_user->execute();
 
                 $conn->commit();
                 handleResponse(true, "Customer deleted successfully");
             } catch (Exception $e) {
                 $conn->rollback();
+                error_log("Error deleting customer: " . $e->getMessage());
                 handleResponse(false, "Error deleting customer: " . $e->getMessage());
             }
             break;

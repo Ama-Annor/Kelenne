@@ -61,13 +61,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 break;
             }
 
-            // Check if appointment belongs to current user and is not confirmed
-            $check_stmt = $conn->prepare("SELECT a.appointment_id FROM appointments a 
-                                          JOIN customers c ON a.customer_id = c.customer_id 
-                                          WHERE a.appointment_id = ? 
-                                          AND c.user_id = ? 
-                                          AND a.status != 'Confirmed'");
-            $check_stmt->bind_param("ii", $_POST['appointment_id'], $_SESSION['user_id']);
+            // Different logic for admin and customer
+            if ($_SESSION['role'] === 'customer') {
+                // For customers: check if appointment belongs to them and is not confirmed
+                $check_stmt = $conn->prepare("SELECT a.appointment_id FROM appointments a 
+                                      JOIN customers c ON a.customer_id = c.customer_id 
+                                      WHERE a.appointment_id = ? 
+                                      AND c.user_id = ? 
+                                      AND a.status != 'Confirmed'");
+                $check_stmt->bind_param("ii", $_POST['appointment_id'], $_SESSION['user_id']);
+            } else if ($_SESSION['role'] === 'admin') {
+                // For admin: allow deletion of any appointment
+                $check_stmt = $conn->prepare("SELECT appointment_id FROM appointments 
+                                      WHERE appointment_id = ?");
+                $check_stmt->bind_param("i", $_POST['appointment_id']);
+            } else {
+                $response["message"] = "Unauthorized access";
+                break;
+            }
+
             $check_stmt->execute();
             $check_result = $check_stmt->get_result();
 

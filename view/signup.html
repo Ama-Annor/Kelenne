@@ -101,7 +101,7 @@
                 </div>
                 <div class="input-group">
                     <input type="password" id="secretKey">
-                    <label>Secret Key</label>
+                    <label>Kindly Provide Your Secret Key(Employees Only)🤫<br>Secret Key</label>
                     <span class="error-message" id="secretKeyError"></span>
                 </div>
                 <button type="submit" class="signup-button">Create Account</button>
@@ -172,8 +172,8 @@
         }
 
         const secretKey = document.getElementById('secretKey');
-        
-        
+
+
         if (secretKey.value.trim() === '') {
             document.getElementById('secretKeyError').textContent = 'Please enter a secret key';
             document.getElementById('secretKeyError').style.display = 'block';

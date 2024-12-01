@@ -118,8 +118,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } catch (Exception $e) {
             // Rollback transaction on error
             $conn->rollback();
-            $response['message'] = "Registration failed. Please try again later.";
-            error_log("Registration error: " . $e->getMessage());
+            $response['message'] = "Registration failed: " . $e->getMessage();
+            error_log("Registration error for employee: " . $e->getMessage());
+            error_log("SQL Error: " . $conn->error);
         }
     }
 

@@ -208,7 +208,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 
     $conn->close();
-    header("Location: ../employee.php");
+    header("Location: ../view/employee.php");
     exit();
 }
 ?>

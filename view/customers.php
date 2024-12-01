@@ -586,17 +586,26 @@ $conn->close();
 
 
         async function deleteCustomer(id) {
-            if (confirm('Are you sure you want to delete this customer?')) {
+            if (confirm('Are you sure you want to delete this customer? This will remove all associated records including appointments, services, and vehicle information.')) {
                 try {
-                    await makeRequest('delete', { customer_id: id });
-                    // Remove the row from the table
-                    const row = document.querySelector(`tr[data-customer-id="${id}"]`);
-                    if (row) row.remove();
+                    const result = await makeRequest('delete', { customer_id: id });
 
-                    // Update customer counts
-                    updateCustomerCounts();
+                    if (result.success) {
+                        // Remove the row from the table
+                        const row = document.querySelector(`tr[data-customer-id="${id}"]`);
+                        if (row) row.remove();
+
+                        // Update customer counts
+                        updateCustomerCounts();
+
+                        // Show success message
+                        alert('Customer deleted successfully');
+                    } else {
+                        throw new Error(result.message);
+                    }
                 } catch (error) {
                     console.error('Error deleting customer:', error);
+                    alert('Error deleting customer: ' + error.message);
                 }
             }
         }

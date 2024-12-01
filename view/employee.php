@@ -714,12 +714,11 @@ $conn->close();
 
         // Function to handle deletions
         function setupDeleteHandlers() {
-            // Employee delete buttons
             document.querySelectorAll('.employee-card .btn-delete').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const employeeId = this.dataset.empId;
                     if (confirm('Are you sure you want to delete this employee?')) {
-                        window.location.href = `../actions/employee_actions.php`;
+                        window.location.href = `../actions/employee_actions.php?action=delete_employee&employee_id=${employeeId}`;
                     }
                 });
             });
@@ -729,7 +728,7 @@ $conn->close();
                 btn.addEventListener('click', function() {
                     const shiftId = this.closest('tr').dataset.shiftId;
                     if (confirm('Are you sure you want to delete this shift?')) {
-                        window.location.href = `../actions/employee_actions.php`;
+                        window.location.href = `../actions/employee_actions.php?action=delete_shift&shift_id=${shiftId}`;
                     }
                 });
             });
